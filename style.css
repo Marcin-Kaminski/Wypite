@@ -1,0 +1,228 @@
+body {
+    font-family: 'PT Sans', sans-serif;
+    background-color: wheat;
+}
+.popraw-rekord {
+    width: 244px;
+    height: 49px;
+    margin: 1px 1px 60px;
+    background-color: black;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 47px;
+    color: rgb(242,242,245,255);
+    text-transform: uppercase;
+    display: block;
+}
+
+.wiecej-rankingow {
+    width: 248px;
+    height: 37px;
+    border-radius: 30px;
+    background-color: rgba(237,237,240,255);
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 36px;
+    color: rgba(103,103,106,255);
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.box {
+    border-radius: 30px;
+    display: inline-table;
+    padding: 50px;
+    float: right;
+    margin-right: 25%;
+    margin-top: 5%;
+    background-color: white;
+    -webkit-box-shadow: 0 0 20px -8px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0 0 20px -8px rgba(66, 68, 90, 1);
+    box-shadow:  0 0 20px -8px rgba(66, 68, 90, 1);
+}
+
+.alcohol{
+    float: left;
+}
+.quantity{
+    float: right;
+}
+.color{
+    color: dimgray;
+}
+.clearfix{
+    clear: both;
+}
+.stripe{
+    margin: 10px 1px;
+    border-bottom: 1px solid #dbdbde;
+}
+.było-pite{
+    text-align: center;
+    font-size: 30px;
+    color: dimgray;
+    font-weight: 700;
+}
+.font-weight{
+    font-weight: 700;
+}
+.by-marcin{
+text-align: center;
+    color: dimgray;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+@media only screen and (max-width: 600px) {
+    body {
+        background-image: none;
+    }
+}
+.percent-80{
+    width: 80%;
+   }
+.mt-0{
+    margin-top: 0!important;
+}
+.mb-20{
+    margin-bottom: 20px;
+}
+.mb-15{
+    margin-bottom: 15px;
+}
+.fb{
+    font-weight: bold;
+}
+.poprawianie-rekordu{
+    font-weight: bold;
+    text-transform: uppercase;
+    float: left;
+    clear: both;
+    margin-bottom: 20px;
+}
+.letter-size {
+    font-size: small;
+}
+.mb-60 {
+    margin-bottom: 60px;
+}
+.ml-80 {
+    margin-left: 80px;
+}
+.mt-200 {
+    margin-top: 60px;
+}
+.font-size-large {
+    font-size: 100px;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+.flex {
+    display: flex;
+}
+.input {
+    width: 400px;
+    height: 400px;
+}
+.ml-60 {
+    margin-left: 60px;
+}
+.font-size-small {
+    font-size: medium;
+}
+.error {;
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.pointer {
+    cursor: pointer;
+}
+.text-align-center {
+    text-align: center;
+}
+.number-visible {
+    position: relative;
+    margin-top: 120px;
+}
+.position-aboslute {
+    position: absolute;
+}
+.rectangle {
+    background-color: rgb(247, 247, 249);
+    width: 117px;
+    height: 36px;
+    color: rgb(98, 98, 100);
+    border-radius: 20px;
+    text-align: center;
+    line-height: 35px;
+    display: block;
+    margin-bottom: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(192, 192, 194);
+}
+.beer {
+    height: 67px;
+}
+.vodka {
+    height: 66px;
+}
+.jager {
+    height: 66px;
+    margin-left: 45px
+}
+.ml-7 {
+    margin-left: 7px;
+}
+.mb-30 {
+    margin-bottom: 30px;
+}
+.ml-10 {
+    margin-left: 10px;
+}
+.alcohol-signature {
+    float: left;
+    width: 85px;
+    height: 100px;
+}
+.mt-40 {
+    margin-top: 40px;
+}
+.ml-21 {
+    margin-left: 21px;
+}
+.ml-vodka-image {
+    margin-left: 36px;
+}
+.ml-vodka-text {
+    margin-left: 27px;
+}
+.ml-jager {
+    margin-left: 40px;
+}
+.ml-39 {
+    margin-left: 39px;
+}
+.bianco {
+    width: 18px;
+}
+.ml-15 {
+    margin-left: 14px;
+}
+.ml-bianco-zobacz {
+    margin-left: 13px;
+}
+.ml-ruda-image {
+    margin-left: 37px;
+}
+.ml-ruda-text {
+    margin-left: 30px;
+}
+.ml-ruda-zobacz {
+    margin-left: 27px;
+}
+.ruda {
+    height: 68px;
+}
