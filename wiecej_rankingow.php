@@ -45,10 +45,6 @@ foreach ($rekordy as $rekord) {
             $gramaturaJagera = $rekord[4];
     }
 }
-
-
-
-
 ?>
 
 
