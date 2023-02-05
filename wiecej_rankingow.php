@@ -102,24 +102,23 @@ foreach ($rekordy as $rekord) {
         <div class="color letter-size clearfix ml-10">zobacz</div>
     </div>
     <div class="alcohol-signature">
-        <img src="zdjecia/wodka.png" alt="Coś nie działa" class="vodka mb-15 ml-vodka-image">
+        <a href="wodka.php"><img src="zdjecia/wodka.png" class="vodka mb-15 ml-vodka-image" alt="Coś nie działa"></a>
         <div class="color text-uppercase font-weight  letter-size clearfix ml-vodka-text mb-0">Wóda</div>
         <div class="color letter-size clearfix ml-vodka-text">zobacz</div>
     </div>
     <div class="alcohol-signature">
-
-        <img src="zdjecia/jager.png" alt="Coś nie działa" class="jager mb-15">
+        <a href="jager.php"> <img src="zdjecia/jager.png" alt="Coś nie działa" class="jager mb-15"></a>
         <div class="color text-uppercase font-weight  letter-size clearfix ml-jager mb-0">Jager</div>
         <div class="color letter-size clearfix ml-39">zobacz</div>
     </div>
     <div class="clearfix"></div>
     <div class="alcohol-signature mt-40">
-        <img src="zdjecia/martiniBianco.png" alt="Coś nie działa" class="bianco mb-15 ml-21">
+        <a href="wino.php"><img src="zdjecia/martiniBianco.png" alt="Coś nie działa" class="bianco mb-15 ml-21"></a>
         <div class="color text-uppercase font-weight  letter-size clearfix ml-15 mb-0">Wino</div>
         <div class="color letter-size clearfix ml-bianco-zobacz">zobacz</div>
     </div>
      <div class="alcohol-signature mt-40">
-        <img src="zdjecia/ruda.png" alt="Coś nie działa" class="ruda mb-15 ml-ruda-image">
+         <a href="ruda.php"><img src="zdjecia/ruda.png" alt="Coś się popsuło" class="ruda mb-15 ml-ruda-image"></a>
         <div class="color text-uppercase font-weight  letter-size clearfix ml-ruda-text mb-0">Ruda</div>
         <div class="color letter-size clearfix ml-ruda-zobacz">zobacz</div>
     </div>

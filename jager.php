@@ -1,4 +1,5 @@
 <?php
+
 require_once 'helpers.php';
 require_once 'connect.php';
 
@@ -6,26 +7,24 @@ $db = new mysqli($host, $db_user, $db_password, $db_name);
 
 $query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
 $rekordy = $db->query($query)->fetch_all();
-$gramaturaPiwa = '';
-$sumaPiwa = 0;
+$gramaturaJagera = '';
+$sumaJagera = 0;
 $iloscDni = 0;
 foreach ($rekordy as $rekord) {
-    switch ($rekord[1]) {
-        case '1':
-            $sumaPiwa += (int)$rekord[3];
-            $gramaturaPiwa = $rekord[4];
-            break;
-    }
-    if ($rekord[1] == 1) {
-        $iloscDni +=  $rekord[1];
+    if ($rekord[1] == 5) {
+        $sumaJagera += (int)$rekord[3];
+        $gramaturaJagera = $rekord[4];
+        $iloscDni += $rekord[1];
     }
 }
-if ($sumaPiwa != 0) {
-    $sumaPieniedzy = 'około ' . $sumaPiwa * 2.99 . ' zł';
-    $sumaPiwa = $sumaPiwa . ' szt.';
+$iloscDni /= 5;
+if ($sumaJagera != 0) {
+    $sumaPieniedzy = $sumaJagera / 1000 * 75.99;
+    $formatedSumaPieniedzy = number_format($sumaPieniedzy, 2);
 } else {
-    $sumaPiwa = 'Nie było pite';
+    $sumaJagera = 'Nie było pite';
 }
+$sumaJagera = rrr($db, $sumaJagera, $gramaturaJagera);
 
 
 ?>
@@ -46,7 +45,7 @@ if ($sumaPiwa != 0) {
         body {
             background-image: url("zdjecia/astronaut_beer.jpg");
             background-size: cover;
-            }
+        }
         }
     </style>
 </head>
@@ -58,16 +57,16 @@ if ($sumaPiwa != 0) {
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
-    <img src="zdjecia/beer.png" class="beer" alt="Coś się popsuło"> <br>
+    <img src="zdjecia/jager.png" class="ruda" alt="Coś się popsuło"> <br>
     <div class="color mb-20">
         <img src="zdjecia/bp_icon.png" alt="napraw kod" class="quantity">
-        <div class="alcohol fb text-uppercase">Statystyki Piwska</div>
+        <div class="alcohol fb text-uppercase">Statystyki jagera</div>
         <div class="clearfix"></div>
         <div class="stripe percent-80 mt-0"></div>
         <div class="font-weight"></div>
         <?php
-        echo 'Suma wypitych piw:' . '<div class="fb">' . $sumaPiwa . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . $sumaPieniedzy . '</div>';
+        echo 'Suma wypitego jagera:' . '<div class="fb">' . $sumaJagera . '</div>';
+        echo '"Wypite" pieniądze:' . '<div class="fb">' . 'około ' . $formatedSumaPieniedzy . ' zł' . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
 
@@ -75,7 +74,7 @@ if ($sumaPiwa != 0) {
     </div>
 
     <a href="wiecej_rankingow.php" class="popraw-rekord mb-15">Wróć</a>
-    </div>
+</div>
 </div>
 
 </body>

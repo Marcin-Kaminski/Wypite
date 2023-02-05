@@ -6,26 +6,24 @@ $db = new mysqli($host, $db_user, $db_password, $db_name);
 
 $query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
 $rekordy = $db->query($query)->fetch_all();
-$gramaturaPiwa = '';
-$sumaPiwa = 0;
+$gramaturaWodki = '';
+$sumaWodki = 0;
 $iloscDni = 0;
 foreach ($rekordy as $rekord) {
-    switch ($rekord[1]) {
-        case '1':
-            $sumaPiwa += (int)$rekord[3];
-            $gramaturaPiwa = $rekord[4];
-            break;
-    }
-    if ($rekord[1] == 1) {
+    if ($rekord[1] == 2) {
+        $sumaWodki += (int)$rekord[3];
+        $gramaturaWodki = $rekord[4];
         $iloscDni +=  $rekord[1];
     }
 }
-if ($sumaPiwa != 0) {
-    $sumaPieniedzy = 'około ' . $sumaPiwa * 2.99 . ' zł';
-    $sumaPiwa = $sumaPiwa . ' szt.';
+$iloscDni /= 2;
+if ($sumaWodki != 0) {
+    $sumaPieniedzy = $sumaWodki / 500 * 24.99;
 } else {
-    $sumaPiwa = 'Nie było pite';
+    $sumaWodki = 'Nie było pite';
 }
+$sumaWodki = rrr($db, $sumaWodki, $gramaturaWodki);
+$formatedSumaPieniedzy = number_format($sumaPieniedzy, 2);
 
 
 ?>
@@ -58,16 +56,16 @@ if ($sumaPiwa != 0) {
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
-    <img src="zdjecia/beer.png" class="beer" alt="Coś się popsuło"> <br>
+    <img src="zdjecia/wodka.png" class="vodka" alt="Coś się popsuło"> <br>
     <div class="color mb-20">
         <img src="zdjecia/bp_icon.png" alt="napraw kod" class="quantity">
-        <div class="alcohol fb text-uppercase">Statystyki Piwska</div>
+        <div class="alcohol fb text-uppercase">Statystyki wódki</div>
         <div class="clearfix"></div>
         <div class="stripe percent-80 mt-0"></div>
         <div class="font-weight"></div>
         <?php
-        echo 'Suma wypitych piw:' . '<div class="fb">' . $sumaPiwa . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . $sumaPieniedzy . '</div>';
+        echo 'Suma wypitej wódki:' . '<div class="fb">' . $sumaWodki . '</div>';
+        echo '"Wypite" pieniądze:' . '<div class="fb">' . 'około ' . $formatedSumaPieniedzy . ' zł.' . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
 
