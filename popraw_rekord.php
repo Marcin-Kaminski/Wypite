@@ -128,7 +128,7 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; p
                     $checked = 'checked';
                     $i++;
                 }
-                echo "<input type='radio' name='alcohol'".$checked." value='$alcohol[0]'> $alcohol[1] <br><br>";
+                echo "<input type='radio' name='alcohol'" . $checked . " value='$alcohol[0]'> $alcohol[1] <br><br>";
             }
             ?>
         </div>

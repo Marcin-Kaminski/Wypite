@@ -5,7 +5,7 @@ body {
 .popraw-rekord {
     width: 244px;
     height: 49px;
-    margin: 1px 1px 60px;
+    margin: 1px 1px 30px;
     background-color: black;
     border-radius: 30px;
     text-align: center;
@@ -226,3 +226,4 @@ text-align: center;
 .ruda {
     height: 68px;
 }
+

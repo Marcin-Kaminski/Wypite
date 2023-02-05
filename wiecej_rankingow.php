@@ -45,6 +45,7 @@ foreach ($rekordy as $rekord) {
             $gramaturaJagera = $rekord[4];
     }
 }
+
 ?>
 
 
@@ -82,9 +83,11 @@ foreach ($rekordy as $rekord) {
         <div class="stripe"></div>
         <div class="font-weight"></div>
     </div>
-    <div class="rectangle alcohol clearfix">2023</div>
-    <div class="rectangle quantity ">grudzień</div>
-    <div class="popraw-rekord clearfix">Zobacz</div>
+    <form method="post">
+        <div class="rectangle alcohol clearfix">2023</div>
+        <div class="rectangle quantity ">grudzień</div>
+        <div class="popraw-rekord clearfix">Zobacz</div>
+    </form>
     <div class="alcohol fb mb-15 text-uppercase color">rekordowe miesiące</div>
     <div class="stripe clearfix"></div>
     <div class="color">
@@ -94,7 +97,7 @@ foreach ($rekordy as $rekord) {
     <div class="alcohol fb mb-15 text-uppercase color">Statystyki poszczególnych alko</div>
     <div class="stripe clearfix mb-30"></div>
     <div class="alcohol-signature">
-        <img src="zdjecia/beer.png" alt="Coś nie działa" class="beer mb-15 ml-21">
+        <a href="piwsko.php"><img src="zdjecia/beer.png" class="beer mb-15 ml-21" alt="Coś nie działa"></a>
         <div class="color text-uppercase font-weight  letter-size clearfix ml-7 mb-0">Piwsko</div>
         <div class="color letter-size clearfix ml-10">zobacz</div>
     </div>
@@ -104,6 +107,7 @@ foreach ($rekordy as $rekord) {
         <div class="color letter-size clearfix ml-vodka-text">zobacz</div>
     </div>
     <div class="alcohol-signature">
+
         <img src="zdjecia/jager.png" alt="Coś nie działa" class="jager mb-15">
         <div class="color text-uppercase font-weight  letter-size clearfix ml-jager mb-0">Jager</div>
         <div class="color letter-size clearfix ml-39">zobacz</div>
