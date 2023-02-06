@@ -3,65 +3,19 @@ require_once 'helpers.php';
 require_once 'connect.php';
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-if (!empty($_POST)) {
-    $query = "INSERT INTO rekord(alcohol_id,quantity) VALUES($_POST[alcohol],$_POST[ilosc])";
-    $db->query($query);
+if (isset($_POST['submit'])) {
+    $postYear = $_POST['year'];
+    $postMonth = $_POST['month'];
 }
-$query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
-$rekordy = $db->query($query)->fetch_all();
-
-$gramaturaJaboli = '';
-$gramaturaPiwa = '';
-$gramaturaWodki = '';
-$gramaturaRudej = '';
-$gramaturaJagera = '';
-
-$sumaPiwa = 0;
-$sumaWodki = 0;
-$sumaJaboli = 0;
-$sumaRudej = 0;
-$sumaJagera = 0;
-
-foreach ($rekordy as $rekord) {
-    switch ($rekord[1]) {
-        case '1':
-            $sumaPiwa += (int)$rekord[3];
-            $gramaturaPiwa = $rekord[4];
-            break;
-        case '2':
-            $sumaWodki += (int)$rekord[3];
-            $gramaturaWodki = $rekord[4];
-            break;
-        case '3':
-            $sumaJaboli += (int)$rekord[3];
-            $gramaturaJaboli = $rekord[4];
-            break;
-        case '4':
-            $sumaRudej += (int)$rekord[3];
-            $gramaturaRudej = $rekord[4];
-            break;
-        case '5':
-            $sumaJagera += (int)$rekord[3];
-            $gramaturaJagera = $rekord[4];
-    }
-}
+var_dump($postMonth);
+var_dump($postYear);
 $query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
 $minimumYear = $db->query($query)->fetch_assoc()['minimum_year']; // najnizszy rok z bazy danych
-
-$actualDate = new DateTime();
-$actualDate = ($actualDate->format('Y')); // aktualny rok
-
-//$query = "SELECT DISTINCT YEAR(created_on) AS year FROM rekord ORDER BY year DESC";
-//$distinctYears = $db->query($query)->fetch_all();
-//v($distinctYears);
-//
-//$betweenYears = ($distinctYears[1][0]);
-//v($betweenYears);
-//
-
-$dates = [$minimumYear, $betweenYears, $actualDate];
-v($dates);
-
+$actualDate = date('Y'); // aktualny rok
+$startYear = $minimumYear; // najnizszy rok (do fora)
+$endYear = $actualDate; // aktualny rok (do fora)
+$months = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec',
+    'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 
 ?>
 
@@ -103,18 +57,18 @@ v($dates);
     <form method="post">
         <?php
             echo '<select name="year" class="rectangle alcohol clearfix">';
-        foreach ($dates as $date) {
-            echo '<option value="' . $date . '">' . $date . '</option>';
+        for ($year = $startYear; $year <= $endYear; $year++) {
+            echo '<option value="' . $year . '">' . $year . '</option>';
         }
-            echo '</select>';
-
-            echo '<select name="month" class="rectangle quantity">';
-            echo '<option value="option1">Styczeń</option>';
-            echo '<option value="option2">Opcja 2</option>';
-            echo '<option value="option3">Opcja 3</option>';
-            echo '</select>';
+        echo '</select>';
+        echo '<select name="month" class="rectangle quantity">';
+        foreach ($months as $month) {
+            echo '<option value="' . $month . '">' . $month . '</option>';
+        }
+        echo '</select>';
         ?>
-        <div class="popraw-rekord clearfix">Zobacz</div>
+        <input type="submit" class="popraw-rekord clearfix" value="Zobacz" >
+
     </form>
     <div class="alcohol fb mb-15 text-uppercase color">rekordowe miesiące</div>
     <div class="stripe clearfix"></div>
