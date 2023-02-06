@@ -45,6 +45,23 @@ foreach ($rekordy as $rekord) {
             $gramaturaJagera = $rekord[4];
     }
 }
+$query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
+$minimumYear = $db->query($query)->fetch_assoc()['minimum_year']; // najnizszy rok z bazy danych
+
+$actualDate = new DateTime();
+$actualDate = ($actualDate->format('Y')); // aktualny rok
+
+//$query = "SELECT DISTINCT YEAR(created_on) AS year FROM rekord ORDER BY year DESC";
+//$distinctYears = $db->query($query)->fetch_all();
+//v($distinctYears);
+//
+//$betweenYears = ($distinctYears[1][0]);
+//v($betweenYears);
+//
+
+$dates = [$minimumYear, $betweenYears, $actualDate];
+v($dates);
+
 
 ?>
 
@@ -84,8 +101,19 @@ foreach ($rekordy as $rekord) {
         <div class="font-weight"></div>
     </div>
     <form method="post">
-        <div class="rectangle alcohol clearfix">2023</div>
-        <div class="rectangle quantity ">grudzień</div>
+        <?php
+            echo '<select name="year" class="rectangle alcohol clearfix">';
+        foreach ($dates as $date) {
+            echo '<option value="' . $date . '">' . $date . '</option>';
+        }
+            echo '</select>';
+
+            echo '<select name="month" class="rectangle quantity">';
+            echo '<option value="option1">Styczeń</option>';
+            echo '<option value="option2">Opcja 2</option>';
+            echo '<option value="option3">Opcja 3</option>';
+            echo '</select>';
+        ?>
         <div class="popraw-rekord clearfix">Zobacz</div>
     </form>
     <div class="alcohol fb mb-15 text-uppercase color">rekordowe miesiące</div>
