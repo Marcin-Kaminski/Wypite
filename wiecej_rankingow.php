@@ -3,19 +3,29 @@ require_once 'helpers.php';
 require_once 'connect.php';
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-if (isset($_POST['submit'])) {
-    $postYear = $_POST['year'];
-    $postMonth = $_POST['month'];
+if (!empty($_GET)) {
+    v('test');
+    echo 'test';
+    $getYear = $_GET['year'];
+    $getMonth = $_GET['month'];
+    v($getMonth);
+//    $query = "SELECT * FROM rekord WHERE created_on ";
+//    $ssx = $db->query($query)->fetch_all();
+//    v($ssx);
 }
-var_dump($postMonth);
-var_dump($postYear);
+
+
 $query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
 $minimumYear = $db->query($query)->fetch_assoc()['minimum_year']; // najnizszy rok z bazy danych
 $actualDate = date('Y'); // aktualny rok
 $startYear = $minimumYear; // najnizszy rok (do fora)
 $endYear = $actualDate; // aktualny rok (do fora)
-$months = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec',
-    'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+$months = [['id' => 1, 'month' => 'Styczeń'], ['id' => 2, 'month' => 'Luty'], ['id' => 3, 'month' => 'Marzec'],
+['id' => 4, 'month' => 'Kwiecień'], ['id' => 5, 'month' => 'Maj'], ['id' => 6, 'month' => 'Czerwiec'],
+['id' => 7, 'month' => 'Lipiec'], ['id' => 8, 'month' => 'Sierpień'], ['id' => 9, 'month' => 'Wrzesień'] ,
+['id' => 10, 'month' => 'Październik'], ['id' => 11, 'month' => 'Listopad'], ['id' => 12, 'month' => 'Grudzień']];
+
+
 
 ?>
 
@@ -54,7 +64,7 @@ $months = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec
         <div class="stripe"></div>
         <div class="font-weight"></div>
     </div>
-    <form method="post">
+    <form method="get">
         <?php
             echo '<select name="year" class="rectangle alcohol clearfix">';
         for ($year = $startYear; $year <= $endYear; $year++) {
@@ -63,7 +73,7 @@ $months = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec
         echo '</select>';
         echo '<select name="month" class="rectangle quantity">';
         foreach ($months as $month) {
-            echo '<option value="' . $month . '">' . $month . '</option>';
+            echo '<option value="' . $month['id'] . '">' . $month['month'] . '</option>';
         }
         echo '</select>';
         ?>
