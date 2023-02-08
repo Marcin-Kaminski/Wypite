@@ -8,12 +8,16 @@ if (!empty($_GET)) {
     echo 'test';
     $getYear = $_GET['year'];
     $getMonth = $_GET['month'];
-    v($getMonth);
-//    $query = "SELECT * FROM rekord WHERE created_on ";
-//    $ssx = $db->query($query)->fetch_all();
-//    v($ssx);
+    if ($getMonth < 10) {
+        $getMonth = '0' . $getMonth;
+    }
+    $query = "SELECT * FROM rekord WHERE YEAR(created_on) = " . $getYear . " AND MONTH(created_on) = " . $getMonth . "";
+    $choosedDates = $db->query($query)->fetch_all();
+    v($choosedDates);
+    foreach ($choosedDates as $choosedDate) {
+        v($choosedDate[1]);
+    }
 }
-
 
 $query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
 $minimumYear = $db->query($query)->fetch_assoc()['minimum_year']; // najnizszy rok z bazy danych
@@ -21,11 +25,42 @@ $actualDate = date('Y'); // aktualny rok
 $startYear = $minimumYear; // najnizszy rok (do fora)
 $endYear = $actualDate; // aktualny rok (do fora)
 $months = [['id' => 1, 'month' => 'Styczeń'], ['id' => 2, 'month' => 'Luty'], ['id' => 3, 'month' => 'Marzec'],
-['id' => 4, 'month' => 'Kwiecień'], ['id' => 5, 'month' => 'Maj'], ['id' => 6, 'month' => 'Czerwiec'],
-['id' => 7, 'month' => 'Lipiec'], ['id' => 8, 'month' => 'Sierpień'], ['id' => 9, 'month' => 'Wrzesień'] ,
-['id' => 10, 'month' => 'Październik'], ['id' => 11, 'month' => 'Listopad'], ['id' => 12, 'month' => 'Grudzień']];
+    ['id' => 4, 'month' => 'Kwiecień'], ['id' => 5, 'month' => 'Maj'], ['id' => 6, 'month' => 'Czerwiec'],
+    ['id' => 7, 'month' => 'Lipiec'], ['id' => 8, 'month' => 'Sierpień'], ['id' => 9, 'month' => 'Wrzesień'] ,
+    ['id' => 10, 'month' => 'Październik'], ['id' => 11, 'month' => 'Listopad'], ['id' => 12, 'month' => 'Grudzień']];
+
+$allResults = [];
+$beerSum = 0;
+$query = "SELECT * FROM rekord";
+$results = $db->query($query);
+foreach ($results as $result) {
+    $alcoholTypes = $result['alcohol_id'];
+    $createdOn = new DateTime($result['created_on']);
+    $year = $createdOn->format('Y');
+    $month = $createdOn->format('m');
+    $date = $year . '-' . $month;
+    if ($result['alcohol_id'] === '1') {
+        $beer = $result['quantity'];
+
+        $allResults[$date] = $beerSum;
 
 
+// 2023
+        if ($result['alcohol_id'] === 1 and $year === '2023') {
+            $beerSum += $beer;
+        };
+//DOWOLNY ROK
+        if ($result['alcohol_id'] === 1 and )
+
+
+    v($result);
+    if (isset($beer)) {
+        $beerSum += $beer;
+    }
+//    v($result);
+}
+;
+//v($allResults);
 
 ?>
 
@@ -44,8 +79,8 @@ $months = [['id' => 1, 'month' => 'Styczeń'], ['id' => 2, 'month' => 'Luty'], [
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         body {
-            background-image: url("zdjecia/astronaut_beer.jpg");
-            background-size: cover;
+            /*background-image: url("zdjecia/astronaut_beer.jpg");*/
+            /*background-size: cover;*/
         }
         }
     </style>
@@ -66,7 +101,7 @@ $months = [['id' => 1, 'month' => 'Styczeń'], ['id' => 2, 'month' => 'Luty'], [
     </div>
     <form method="get">
         <?php
-            echo '<select name="year" class="rectangle alcohol clearfix">';
+        echo '<select name="year" class="rectangle alcohol clearfix">';
         for ($year = $startYear; $year <= $endYear; $year++) {
             echo '<option value="' . $year . '">' . $year . '</option>';
         }
@@ -83,8 +118,8 @@ $months = [['id' => 1, 'month' => 'Styczeń'], ['id' => 2, 'month' => 'Luty'], [
     <div class="alcohol fb mb-15 text-uppercase color">rekordowe miesiące</div>
     <div class="stripe clearfix"></div>
     <div class="color">
-        xxxx <br>
-        xxxx <br> <br>
+        Piwo - <br>
+        Wóda - <br> <br>
     </div>
     <div class="alcohol fb mb-15 text-uppercase color">Statystyki poszczególnych alko</div>
     <div class="stripe clearfix mb-30"></div>
@@ -109,8 +144,8 @@ $months = [['id' => 1, 'month' => 'Styczeń'], ['id' => 2, 'month' => 'Luty'], [
         <div class="color text-uppercase font-weight  letter-size clearfix ml-15 mb-0">Wino</div>
         <div class="color letter-size clearfix ml-bianco-zobacz">zobacz</div>
     </div>
-     <div class="alcohol-signature mt-40">
-         <a href="ruda.php"><img src="zdjecia/ruda.png" alt="Coś się popsuło" class="ruda mb-15 ml-ruda-image"></a>
+    <div class="alcohol-signature mt-40">
+        <a href="ruda.php"><img src="zdjecia/ruda.png" alt="Coś się popsuło" class="ruda mb-15 ml-ruda-image"></a>
         <div class="color text-uppercase font-weight  letter-size clearfix ml-ruda-text mb-0">Ruda</div>
         <div class="color letter-size clearfix ml-ruda-zobacz">zobacz</div>
     </div>

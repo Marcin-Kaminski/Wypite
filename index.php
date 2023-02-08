@@ -136,7 +136,7 @@ if ($sumaPiwa != 0) {
         </div>
 
     <div class="wiecej-rankingow">
-    <a href="wiecej_rankingow.php" class="wiecej-rankingow">Więcej dzikich rankingów</a>
+    <a href="rankingi.php" class="wiecej-rankingow">Więcej dzikich rankingów</a>
     </div>
 </div>
 
