@@ -24,44 +24,51 @@ $minimumYear = $db->query($query)->fetch_assoc()['minimum_year']; // najnizszy r
 $actualDate = date('Y'); // aktualny rok
 $startYear = $minimumYear; // najnizszy rok (do fora)
 $endYear = $actualDate; // aktualny rok (do fora)
-$months = [['id' => 1, 'month' => 'Styczeń'], ['id' => 2, 'month' => 'Luty'], ['id' => 3, 'month' => 'Marzec'],
-    ['id' => 4, 'month' => 'Kwiecień'], ['id' => 5, 'month' => 'Maj'], ['id' => 6, 'month' => 'Czerwiec'],
-    ['id' => 7, 'month' => 'Lipiec'], ['id' => 8, 'month' => 'Sierpień'], ['id' => 9, 'month' => 'Wrzesień'] ,
-    ['id' => 10, 'month' => 'Październik'], ['id' => 11, 'month' => 'Listopad'], ['id' => 12, 'month' => 'Grudzień']];
+$months = [['id' => '01', 'month' => 'Styczeń'], ['id' => '02', 'month' => 'Luty'], ['id' => '03', 'month' => 'Marzec'],
+    ['id' => '04', 'month' => 'Kwiecień'], ['id' => '05', 'month' => 'Maj'], ['id' => '06', 'month' => 'Czerwiec'],
+    ['id' => '07', 'month' => 'Lipiec'], ['id' => '08', 'month' => 'Sierpień'], ['id' => '09', 'month' => 'Wrzesień'],
+    ['id' => '10', 'month' => 'Październik'], ['id' => '11', 'month' => 'Listopad'],
+    ['id' => '12', 'month' => 'Grudzień']];
 
 $allResults = [];
-$beerSum = 0;
+$mostBeer = 0;
 $query = "SELECT * FROM rekord";
 $results = $db->query($query);
 foreach ($results as $result) {
-    $alcoholTypes = $result['alcohol_id'];
-    $createdOn = new DateTime($result['created_on']);
-    $year = $createdOn->format('Y');
-    $month = $createdOn->format('m');
-    $date = $year . '-' . $month;
     if ($result['alcohol_id'] === '1') {
         $beer = $result['quantity'];
-
-        $allResults[$date] = $beerSum;
-
-
-// 2023
-        if ($result['alcohol_id'] === 1 and $year === '2023') {
-            $beerSum += $beer;
-        };
-//DOWOLNY ROK
-        if ($result['alcohol_id'] === 1 and )
-
-
-    v($result);
-    if (isset($beer)) {
-        $beerSum += $beer;
+        $createdOn = new DateTime($result['created_on']);
+        $date = $createdOn->format('Y-m');
+        if (!isset($allResults[$date])) {
+            $allResults[$date] = 0;
+        }
+        $allResults[$date] += $beer;
     }
-//    v($result);
 }
-;
-//v($allResults);
+foreach ($allResults as $result) {
+//    echo $result . '<br>';
+    if ($result > $mostBeer) {
+        $mostBeer = $result;
+    }
+}
+$mostBeerMonthArray = [];
+foreach ($allResults as $key => $result) {
+    if ($mostBeer === $result) {
+        $mostBeerMonthArray[] = $key;
+        $bestYear = substr($key, 0, 4);
+        $bestMonth = substr($key, 5, 2);
+        foreach ($months as $month) {
+            if ($bestMonth === $month['id']) {
+                $bestMonth = $month['month'];
+            }
+        }
+    }
+}
 
+
+echo $bestMonth . '<br>';
+echo $bestYear;
+v($mostBeerMonthArray);
 ?>
 
 
@@ -118,8 +125,10 @@ foreach ($results as $result) {
     <div class="alcohol fb mb-15 text-uppercase color">rekordowe miesiące</div>
     <div class="stripe clearfix"></div>
     <div class="color">
-        Piwo - <br>
-        Wóda - <br> <br>
+        <?php
+        echo 'Rekordowy miesiąc i rok dla piwa:' .
+            '<div class="fb">' . $bestMonth . ' ' . $bestYear . ', ' . $mostBeer . ' szt.' . '<br>' . '<br>';
+        ?>
     </div>
     <div class="alcohol fb mb-15 text-uppercase color">Statystyki poszczególnych alko</div>
     <div class="stripe clearfix mb-30"></div>
