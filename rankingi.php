@@ -36,21 +36,31 @@ $wineResults = [];
 $vodkaResults = [];
 $jagerResults = [];
 
-$mostBeer = 0;
-$mostWhiksey = 0;
-$mostWine = 0;
-$mostVodka = 0;
-$mostJager = 0;
-
 $mostBeerMonthArray = [];
-$mostWhikseyMonthArray = [];
 $mostWineMonthArray = [];
 $mostVodkaMonthArray = [];
 $mostJagerMonthArray = [];
 
+$mostBeer = 0;
+$mostVodka = 0;
+$mostWine = 0;
+$mostWhiskey = 0;
+$mostJager = 0;
+
+$bestBeerMonth = '';
+$bestVodkaMonth = '';
+$bestWineMonth = '';
+$bestWhiskeyMonth = '';
+$bestJagerMonth = '';
+
+$bestBeerYear = '';
+$bestVodkaYear = '';
+$bestWineYear = '';
+$bestWhiskeyYear = '';
+$bestJagerYear = '';
+
 $query = "SELECT * FROM rekord";
 $results = $db->query($query);
-$beer = '0';
 
 mostAlcohol('1', $beerResults, $results);
 mostAlcohol('2', $vodkaResults, $results);
@@ -58,39 +68,39 @@ mostAlcohol('3', $wineResults, $results);
 mostAlcohol('4', $whiskeyResults, $results);
 mostAlcohol('5', $jagerResults, $results);
 
+mostAlcoholQuantity($beerResults, $mostBeer);
+mostAlcoholQuantity($vodkaResults, $mostVodka);
+mostAlcoholQuantity($wineResults, $mostWine);
+mostAlcoholQuantity($whiskeyResults, $mostWhiksey);
+mostAlcoholQuantity($jagerResults, $mostJager);
+echo $mostWhiksey;
+v($mostWhiksey);
 
-v($beerResults);
-v($vodkaResults);
-v($wineResults);
-v($whiskeyResults);
-v($jagerResults);
+numericToWordDate($beerResults, $mostBeer, $mostBeerMonthArray, $bestBeerMonth, $bestBeerYear, $months);
+numericToWordDate($vodkaResults, $mostVodka, $mostVodkaMonthArray, $bestVodkaMonth, $bestVodkaYear, $months);
+numericToWordDate($wineResults, $mostWine, $mostWineMonthArray, $bestWineMonth, $bestWineYear, $months);
+//numericToWordDate($whiskeyResults, $mostWhiskey, $mostWhiskeyMonthArray, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
+numericToWordDate($jagerResults, $mostJager, $mostJagerMonthArray, $bestJagerMonth, $bestJagerYear, $months);
 
-foreach ($beerResults as $result) {     // liczy ilosc wypitego piwa z najlepszego miesiaca
-    if ($result > $mostBeer) {
-        $mostBeer = $result;
-    }
-}
-v($mostBeer);
-
-foreach ($beerResults as $key => $result) { // daty z tablic
-    if ($mostBeer === $result) {
-        $mostBeerMonthArray[] = $key;
-        $bestBeerYear = substr($key, 0, 4);
-        $bestBeerMonth = substr($key, 5, 2);
-        foreach ($months as $month) {
-            if ($bestBeerMonth === $month['id']) {
-                $bestBeerMonth = $month['month'];
-            }
-        }
-    }
-}
-
-
-
-//echo $bestBeerMonth . '<br>';
-//echo $bestBeerYear;
-//v($mostBeerMonthArray);
 //v($mostWhiksey);
+//echo $mostWhiksey;
+//
+////foreach ($whiskeyResults as $key => $result) { // daty z tablic
+////    if ($mostWhiksey === $result) {
+////        $mostWhiskeyMonthArray[] = $key;
+////        $bestWhiskeyYear = substr($key, 0, 4);
+////        $bestWhiskeyMonth = substr($key, 5, 2);
+////        foreach ($months as $month) {
+////            if ($bestWhiskeyMonth === $month['id']) {
+////                $bestWhiskeyMonth = $month['month'];
+////            }
+////        }
+////    }
+////}
+//
+//echo $mostWhiksey;
+//v($mostWhiksey);
+$mostWhiskeyMonthArray = xsz($whiskeyResults, $mostWhiskey, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
 ?>
 
 
@@ -149,7 +159,15 @@ foreach ($beerResults as $key => $result) { // daty z tablic
     <div class="color">
         <?php
         echo 'Rekordowy miesiąc i rok dla piwa:' .
-            '<div class="fb">' . $bestBeerMonth . ' ' . $bestBeerYear . ', ' . $mostBeer . ' szt.' . '<br>' . '<br>';
+            '<div class="fb">' . $bestBeerMonth . ' ' . $bestBeerYear . ', ' . $mostBeer . ' szt.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Wódki:' .
+            '<div class="fb">' . $bestVodkaMonth . ' ' . $bestVodkaYear . ', ' . $mostVodka . ' ml.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Jaboli:' .
+            '<div class="fb">' . $bestWineMonth . ' ' . $bestWineYear . ', ' . $mostWine . ' ml.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Rudej:' .
+            '<div class="fb">' . $bestWhiskeyMonth . ' ' . $bestWhiskeyYear . ', ' . $mostWhiskey . ' ml.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Jagera:' .
+            '<div class="fb">' . $bestJagerMonth . ' ' . $bestJagerYear . ', ' . $mostJager . ' ml.' . '<br>' . '<br>' .  '</div>';
         ?>
     </div>
     <div class="alcohol fb mb-15 text-uppercase color">Statystyki poszczególnych alko</div>

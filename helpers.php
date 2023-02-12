@@ -34,3 +34,46 @@ function mostAlcohol($alcoholId, &$alcoholResults, $results)
         }
     }
 }
+
+function mostAlcoholQuantity($alcoholResults, &$mostAlcohol)
+{
+    foreach ($alcoholResults as $result) {
+        if ($result > $mostAlcohol) {
+            $mostAlcohol = $result;
+        }
+    }
+}
+
+function numericToWordDate($alcoholResults, $mostAlcohol, &$mostAlcoholMonthArray, &$bestAlcoholMonth, &$bestAlcoholYear, $months)
+{
+    foreach ($alcoholResults as $key => $result) { // daty z tablic
+        if ($mostAlcohol === $result) {
+            $mostAlcoholMonthArray[] = $key;
+            $bestAlcoholYear = substr($key, 0, 4);
+            $bestAlcoholMonth = substr($key, 5, 2);
+            foreach ($months as $month) {
+                if ($bestAlcoholMonth === $month['id']) {
+                    $bestAlcoholMonth = $month['month'];
+                }
+            }
+        }
+    }
+}
+
+function xsz($alcoholResults, $mostAlcohol, $bestAlcoholMonth, $bestAlcoholYear, $months)
+{
+    $mostAlcoholMonthArray = [];
+    foreach ($alcoholResults as $key => $result) { // daty z tablic
+        if ($mostAlcohol === $result) {
+            $mostAlcoholMonthArray[] = $key;
+            $bestAlcoholYear = substr($key, 0, 4);
+            $bestAlcoholMonth = substr($key, 5, 2);
+            foreach ($months as $month) {
+                if ($bestAlcoholMonth === $month['id']) {
+                    $bestAlcoholMonth = $month['month'];
+                }
+            }
+        }
+    }
+    return $mostAlcoholMonthArray;
+}
