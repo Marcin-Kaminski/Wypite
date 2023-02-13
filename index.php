@@ -7,7 +7,7 @@ if (!empty($_POST)) {
     $query = "INSERT INTO rekord(alcohol_id,quantity) VALUES($_POST[alcohol],$_POST[ilosc])";
     $db->query($query);
 }
-$query = "SELECT * FROM rekord";
+$query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
 $rekordy = $db->query($query)->fetch_all();
 
 $gramaturaJaboli = '';

@@ -34,6 +34,7 @@ function mostAlcohol($alcoholId, &$alcoholResults, $results)
         }
     }
 }
+<<<<<<< HEAD
 
 function mostAlcoholQuantity($alcoholResults, &$mostAlcohol)
 {
@@ -59,3 +60,5 @@ function numericToWordDate($alcoholResults, $mostAlcohol, &$mostAlcoholMonthArra
         }
     }
 }
+=======
+>>>>>>> parent of ada2161 (php zwariował)
