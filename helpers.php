@@ -59,21 +59,3 @@ function numericToWordDate($alcoholResults, $mostAlcohol, &$mostAlcoholMonthArra
         }
     }
 }
-
-function xsz($alcoholResults, $mostAlcohol, $bestAlcoholMonth, $bestAlcoholYear, $months)
-{
-    $mostAlcoholMonthArray = [];
-    foreach ($alcoholResults as $key => $result) { // daty z tablic
-        if ($mostAlcohol === $result) {
-            $mostAlcoholMonthArray[] = $key;
-            $bestAlcoholYear = substr($key, 0, 4);
-            $bestAlcoholMonth = substr($key, 5, 2);
-            foreach ($months as $month) {
-                if ($bestAlcoholMonth === $month['id']) {
-                    $bestAlcoholMonth = $month['month'];
-                }
-            }
-        }
-    }
-    return $mostAlcoholMonthArray;
-}

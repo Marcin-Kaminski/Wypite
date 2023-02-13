@@ -74,7 +74,7 @@ $sumaWina = rrr($db, $sumaWina, $gramaturaWina);
         ?>
     </div>
 
-    <a href="wiecej_rankingow.php" class="popraw-rekord mb-15">Wróć</a>
+    <a href="rankingi.php" class="popraw-rekord mb-15">Wróć</a>
 </div>
 </div>
 

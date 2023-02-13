@@ -71,36 +71,15 @@ mostAlcohol('5', $jagerResults, $results);
 mostAlcoholQuantity($beerResults, $mostBeer);
 mostAlcoholQuantity($vodkaResults, $mostVodka);
 mostAlcoholQuantity($wineResults, $mostWine);
-mostAlcoholQuantity($whiskeyResults, $mostWhiksey);
+mostAlcoholQuantity($whiskeyResults, $mostWhiskey);
 mostAlcoholQuantity($jagerResults, $mostJager);
-echo $mostWhiksey;
-v($mostWhiksey);
 
 numericToWordDate($beerResults, $mostBeer, $mostBeerMonthArray, $bestBeerMonth, $bestBeerYear, $months);
 numericToWordDate($vodkaResults, $mostVodka, $mostVodkaMonthArray, $bestVodkaMonth, $bestVodkaYear, $months);
 numericToWordDate($wineResults, $mostWine, $mostWineMonthArray, $bestWineMonth, $bestWineYear, $months);
-//numericToWordDate($whiskeyResults, $mostWhiskey, $mostWhiskeyMonthArray, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
+numericToWordDate($whiskeyResults, $mostWhiskey, $mostWhiskeyMonthArray, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
 numericToWordDate($jagerResults, $mostJager, $mostJagerMonthArray, $bestJagerMonth, $bestJagerYear, $months);
 
-//v($mostWhiksey);
-//echo $mostWhiksey;
-//
-////foreach ($whiskeyResults as $key => $result) { // daty z tablic
-////    if ($mostWhiksey === $result) {
-////        $mostWhiskeyMonthArray[] = $key;
-////        $bestWhiskeyYear = substr($key, 0, 4);
-////        $bestWhiskeyMonth = substr($key, 5, 2);
-////        foreach ($months as $month) {
-////            if ($bestWhiskeyMonth === $month['id']) {
-////                $bestWhiskeyMonth = $month['month'];
-////            }
-////        }
-////    }
-////}
-//
-//echo $mostWhiksey;
-//v($mostWhiksey);
-$mostWhiskeyMonthArray = xsz($whiskeyResults, $mostWhiskey, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
 ?>
 
 
