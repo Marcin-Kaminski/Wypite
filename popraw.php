@@ -5,8 +5,7 @@ require_once 'connect.php';
 
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-if(!empty($_POST)){
-
+if (!empty($_POST)) {
     $query = "INSERT INTO rekord(alcohol_id,quantity) VALUES($_POST[alcohol],$_POST[ilosc])";
     $db->query($query);
 }
@@ -15,26 +14,26 @@ $wyniki = $db->query($query)->fetch_all();
 
 
 $sumap = 0;
-foreach ($wyniki as $wynik){
-    if($wynik[1]==='1'){
+foreach ($wyniki as $wynik) {
+    if ($wynik[1] === '1') {
         $sumap = $sumap + (int)$wynik[3];
     }
 }
 $sumaw = 0;
-foreach ($wyniki as $wynik){
-    if($wynik[1]==='2'){
+foreach ($wyniki as $wynik) {
+    if ($wynik[1] === '2') {
         $sumaw = $sumaw + (int)$wynik[3];
     }
 }
 $sumaj = 0;
-foreach ($wyniki as $wynik){
-    if($wynik[1]==='3'){
+foreach ($wyniki as $wynik) {
+    if ($wynik[1] === '3') {
         $sumaj = $sumaj + (int)$wynik[3];
     }
 }
 $sumar = 0;
-foreach ($wyniki as $wynik){
-    if($wynik[1]==='4'){
+foreach ($wyniki as $wynik) {
+    if ($wynik[1] === '4') {
         $sumar = $sumar + (int)$wynik[3];
     }
 }

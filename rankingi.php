@@ -4,8 +4,6 @@ require_once 'connect.php';
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 
 if (!empty($_GET)) {
-    v('test');
-    echo 'test';
     $getYear = $_GET['year'];
     $getMonth = $_GET['month'];
     if ($getMonth < 10) {
@@ -13,10 +11,11 @@ if (!empty($_GET)) {
     }
     $query = "SELECT * FROM rekord WHERE YEAR(created_on) = " . $getYear . " AND MONTH(created_on) = " . $getMonth . "";
     $choosedDates = $db->query($query)->fetch_all();
-    v($choosedDates);
-    foreach ($choosedDates as $choosedDate) {
-        v($choosedDate[1]);
-    }
+    $beerSum = chosenAlcoholQuantity($choosedDates, '1');
+    $vodkaSum = chosenAlcoholQuantity($choosedDates, '2');
+    $wineSum = chosenAlcoholQuantity($choosedDates, '3');
+    $whiskeySum = chosenAlcoholQuantity($choosedDates, '4');
+    $jagerSum = chosenAlcoholQuantity($choosedDates, '5');
 }
 
 $query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
@@ -30,27 +29,8 @@ $months = [['id' => '01', 'month' => 'Styczeń'], ['id' => '02', 'month' => 'Lut
     ['id' => '10', 'month' => 'Październik'], ['id' => '11', 'month' => 'Listopad'],
     ['id' => '12', 'month' => 'Grudzień']];
 
-$beerResults = [];
-$whiskeyResults = [];
-$wineResults = [];
-$vodkaResults = [];
-$jagerResults = [];
-
-$mostBeer = 0;
-$mostWhiksey = 0;
-$mostWine = 0;
-$mostVodka = 0;
-$mostJager = 0;
-
-$mostBeerMonthArray = [];
-$mostWhikseyMonthArray = [];
-$mostWineMonthArray = [];
-$mostVodkaMonthArray = [];
-$mostJagerMonthArray = [];
-
 $query = "SELECT * FROM rekord";
 $results = $db->query($query);
-$beer = '0';
 
 mostAlcohol('1', $beerResults, $results);
 mostAlcohol('2', $vodkaResults, $results);
@@ -58,7 +38,6 @@ mostAlcohol('3', $wineResults, $results);
 mostAlcohol('4', $whiskeyResults, $results);
 mostAlcohol('5', $jagerResults, $results);
 
-<<<<<<< HEAD
 mostAlcoholQuantity($beerResults, $mostBeer);
 mostAlcoholQuantity($vodkaResults, $mostVodka);
 mostAlcoholQuantity($wineResults, $mostWine);
@@ -70,42 +49,6 @@ numericToWordDate($vodkaResults, $mostVodka, $mostVodkaMonthArray, $bestVodkaMon
 numericToWordDate($wineResults, $mostWine, $mostWineMonthArray, $bestWineMonth, $bestWineYear, $months);
 numericToWordDate($whiskeyResults, $mostWhiskey, $mostWhiskeyMonthArray, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
 numericToWordDate($jagerResults, $mostJager, $mostJagerMonthArray, $bestJagerMonth, $bestJagerYear, $months);
-
-=======
-
-v($beerResults);
-v($vodkaResults);
-v($wineResults);
-v($whiskeyResults);
-v($jagerResults);
-
-foreach ($beerResults as $result) {     // liczy ilosc wypitego piwa z najlepszego miesiaca
-    if ($result > $mostBeer) {
-        $mostBeer = $result;
-    }
-}
-v($mostBeer);
-
-foreach ($beerResults as $key => $result) { // daty z tablic
-    if ($mostBeer === $result) {
-        $mostBeerMonthArray[] = $key;
-        $bestBeerYear = substr($key, 0, 4);
-        $bestBeerMonth = substr($key, 5, 2);
-        foreach ($months as $month) {
-            if ($bestBeerMonth === $month['id']) {
-                $bestBeerMonth = $month['month'];
-            }
-        }
-    }
-}
-
-
-
-//echo $bestBeerMonth . '<br>';
-//echo $bestBeerYear;
-//v($mostBeerMonthArray);
-//v($mostWhiksey);
->>>>>>> parent of ada2161 (php zwariował)
 ?>
 
 
@@ -126,7 +69,6 @@ foreach ($beerResults as $key => $result) { // daty z tablic
             /*background-image: url("zdjecia/astronaut_beer.jpg");*/
             /*background-size: cover;*/
         }
-        }
     </style>
 </head>
 <body>
@@ -138,7 +80,16 @@ foreach ($beerResults as $key => $result) { // daty z tablic
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
     <div class="color mb-20">
-        <div class="alcohol fb text-uppercase">Rankingi i statystyki</div>
+        <div class="alcohol fb text-uppercase">Rankingi i statystyki</div> <br>
+        <?php
+        if (!empty($_GET)) {
+            echo 'Wypite piwo: ' . '<div class="fb">' . $beerSum . ' szt.' . '</div>';
+            echo 'Wypita wóda: ' . '<div class="fb">' . $vodkaSum . ' ml.' . '</div>';
+            echo 'Wypita ruda: ' . '<div class="fb">' . $whiskeySum . ' ml.' . '</div>';
+            echo 'Wypity jabol: ' . '<div class="fb">' . $wineSum . ' ml.' . '</div>';
+            echo 'Wypity jager: ' . '<div class="fb">' . $jagerSum . ' ml.' . '</div>';
+        }
+        ?>
         <div class="clearfix"></div>
         <div class="stripe"></div>
         <div class="font-weight"></div>
@@ -164,7 +115,15 @@ foreach ($beerResults as $key => $result) { // daty z tablic
     <div class="color">
         <?php
         echo 'Rekordowy miesiąc i rok dla piwa:' .
-            '<div class="fb">' . $bestBeerMonth . ' ' . $bestBeerYear . ', ' . $mostBeer . ' szt.' . '<br>' . '<br>';
+            '<div class="fb">' . $bestBeerMonth . ' ' . $bestBeerYear . ', ' . $mostBeer . ' szt.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Wódki:' .
+            '<div class="fb">' . $bestVodkaMonth . ' ' . $bestVodkaYear . ', ' . $mostVodka . ' ml.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Jaboli:' .
+            '<div class="fb">' . $bestWineMonth . ' ' . $bestWineYear . ', ' . $mostWine . ' ml.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Rudej:' .
+            '<div class="fb">' . $bestWhiskeyMonth . ' ' . $bestWhiskeyYear . ', ' . $mostWhiskey . ' ml.' . '<br>' . '</div>';
+        echo 'Rekordowy miesiąc i rok dla Jagera:' .
+            '<div class="fb">' . $bestJagerMonth . ' ' . $bestJagerYear . ', ' . $mostJager . ' ml.' . '<br>' . '<br>' .  '</div>';
         ?>
     </div>
     <div class="alcohol fb mb-15 text-uppercase color">Statystyki poszczególnych alko</div>
