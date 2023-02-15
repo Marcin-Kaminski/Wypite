@@ -70,3 +70,12 @@ function chosenAlcoholQuantity($choosedDates, $alcoholId)
     }
     return $alcoholSum;
 }
+
+function checkIf($sum): string
+{
+    if ($sum === '0') {
+        return '<div class="quantity">' . 'Nie było pite' . '</div>';
+    } else {
+        return '<div class="quantity">' . $sum . ' ml.'  . '</div>';
+    }
+}

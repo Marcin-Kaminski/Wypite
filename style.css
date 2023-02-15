@@ -226,4 +226,7 @@ text-align: center;
 .ruda {
     height: 68px;
 }
-
+.alcohol-name {
+    float: left;
+    width: 80px;
+}

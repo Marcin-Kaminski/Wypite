@@ -83,11 +83,25 @@ numericToWordDate($jagerResults, $mostJager, $mostJagerMonthArray, $bestJagerMon
         <div class="alcohol fb text-uppercase">Rankingi i statystyki</div> <br>
         <?php
         if (!empty($_GET)) {
-            echo 'Wypite piwo: ' . '<div class="fb">' . $beerSum . ' szt.' . '</div>';
-            echo 'Wypita wóda: ' . '<div class="fb">' . $vodkaSum . ' ml.' . '</div>';
-            echo 'Wypita ruda: ' . '<div class="fb">' . $whiskeySum . ' ml.' . '</div>';
-            echo 'Wypity jabol: ' . '<div class="fb">' . $wineSum . ' ml.' . '</div>';
-            echo 'Wypity jager: ' . '<div class="fb">' . $jagerSum . ' ml.' . '</div>';
+                echo'<div class="alcohol-name">' . 'Piwsko'  . '</div>';
+            if ($beerSum === '0') {
+                echo '<div class="quantity">' . 'Nie było pite' . '</div>';
+            } else {
+                echo '<div class="quantity">' . $beerSum . ' szt.'  . '</div>';
+            }
+            echo'<div class="clearfix">' . '</div>' .
+                '<div class="alcohol-name">' . 'Wódka'  . '</div>' .
+                checkIf($vodkaSum) .
+                '<div class="clearfix">' . '</div>' .
+                '<div class="alcohol-name">' . 'Ruda'  . '</div>' .
+                checkIf($whiskeySum) .
+                '<div class="clearfix">' . '</div>' .
+                '<div class="alcohol-name">' . 'Jabol'  . '</div>' .
+                checkIf($wineSum) .
+                '<div class="clearfix">' . '</div>' .
+                '<div class="alcohol-name">' . 'Jager'  . '</div>' .
+                checkIf($jagerSum) .
+                '<div class="clearfix">' . '</div>' . '<br>';
         }
         ?>
         <div class="clearfix"></div>
@@ -112,20 +126,41 @@ numericToWordDate($jagerResults, $mostJager, $mostJagerMonthArray, $bestJagerMon
     </form>
     <div class="alcohol fb mb-15 text-uppercase color">rekordowe miesiące</div>
     <div class="stripe clearfix"></div>
-    <div class="color">
+    <div class="color letter-size">
         <?php
-        echo 'Rekordowy miesiąc i rok dla piwa:' .
-            '<div class="fb">' . $bestBeerMonth . ' ' . $bestBeerYear . ', ' . $mostBeer . ' szt.' . '<br>' . '</div>';
-        echo 'Rekordowy miesiąc i rok dla Wódki:' .
-            '<div class="fb">' . $bestVodkaMonth . ' ' . $bestVodkaYear . ', ' . $mostVodka . ' ml.' . '<br>' . '</div>';
-        echo 'Rekordowy miesiąc i rok dla Jaboli:' .
-            '<div class="fb">' . $bestWineMonth . ' ' . $bestWineYear . ', ' . $mostWine . ' ml.' . '<br>' . '</div>';
-        echo 'Rekordowy miesiąc i rok dla Rudej:' .
-            '<div class="fb">' . $bestWhiskeyMonth . ' ' . $bestWhiskeyYear . ', ' . $mostWhiskey . ' ml.' . '<br>' . '</div>';
-        echo 'Rekordowy miesiąc i rok dla Jagera:' .
-            '<div class="fb">' . $bestJagerMonth . ' ' . $bestJagerYear . ', ' . $mostJager . ' ml.' . '<br>' . '<br>' .  '</div>';
+        if (!is_null($mostBeer)) {
+            echo'<div class="alcohol-name">' . 'Piwsko'  . '</div>' .
+                '<div class="alcohol ">' . $mostBeer . ' szt.'  . '</div>' .
+                '<div class="quantity">' . $bestBeerMonth . ' ' . $bestBeerYear . '</div>' .
+                '<div class="clearfix">' . '</div>';
+        }
+        if (!is_null($mostVodka)) {
+            echo'<div class="alcohol-name">' . 'Wódka'  . '</div>' .
+              '<div class="alcohol ">' . 'ok. ' . $mostVodka . ' ml.'  . '</div>' .
+              '<div class="quantity">' . $bestVodkaMonth . ' ' . $bestVodkaYear . '</div>' .
+              '<div class="clearfix">' . '</div>';
+        }
+        if (!is_null($mostWhiskey)) {
+            echo'<div class="alcohol-name">' . 'Ruda'  . '</div>' .
+              '<div class="alcohol ">' . 'ok. ' . $mostWhiskey . ' ml.'  . '</div>' .
+              '<div class="quantity">' . $bestWhiskeyMonth . ' ' . $bestWhiskeyYear . '</div>' .
+              '<div class="clearfix">' . '</div>';
+        }
+        if (!is_null($mostWine)) {
+            echo'<div class="alcohol-name">' . 'Jabol'  . '</div>' .
+              '<div class="alcohol ">' . 'ok. ' .  $mostWine . ' ml.'  . '</div>' .
+              '<div class="quantity">' . $bestWineMonth . ' ' . $bestWineYear . '</div>' .
+              '<div class="clearfix">' . '</div>';
+        }
+        if (!is_null($mostJager)) {
+            echo'<div class="alcohol-name">' . 'Jager'  . '</div>' .
+              '<div class="alcohol ">' . 'ok. ' . $mostJager . ' ml.'  . '</div>' .
+              '<div class="quantity">' . $bestJagerMonth . ' ' . $bestJagerYear . '</div>' .
+              '<div class="clearfix">' . '</div>' . '<br>';
+        }
         ?>
     </div>
+    <div class="clearfix"></div>
     <div class="alcohol fb mb-15 text-uppercase color">Statystyki poszczególnych alko</div>
     <div class="stripe clearfix mb-30"></div>
     <div class="alcohol-signature">
