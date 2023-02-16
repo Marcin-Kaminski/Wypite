@@ -76,8 +76,8 @@ xyz($mostJagerArray, $bestJagerYear, $bestJagerMonth, $months, $jagerArrayName);
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         body {
-            /*background-image: url("zdjecia/astronaut_beer.jpg");*/
-            /*background-size: cover;*/
+            background-image: url("zdjecia/astronaut_beer.jpg");
+            background-size: cover;
         }
     </style>
 </head>
