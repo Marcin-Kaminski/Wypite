@@ -31,12 +31,13 @@ $months = [['id' => '01', 'month' => 'Styczeń'], ['id' => '02', 'month' => 'Lut
 
 $query = "SELECT * FROM rekord";
 $results = $db->query($query);
-
 mostAlcohol('1', $beerResults, $results);
 mostAlcohol('2', $vodkaResults, $results);
 mostAlcohol('3', $wineResults, $results);
 mostAlcohol('4', $whiskeyResults, $results);
 mostAlcohol('5', $jagerResults, $results);
+
+$mostBeerArray = [];
 
 mostAlcoholQuantity($beerResults, $mostBeer);
 mostAlcoholQuantity($vodkaResults, $mostVodka);
@@ -44,11 +45,34 @@ mostAlcoholQuantity($wineResults, $mostWine);
 mostAlcoholQuantity($whiskeyResults, $mostWhiskey);
 mostAlcoholQuantity($jagerResults, $mostJager);
 
-numericToWordDate($beerResults, $mostBeer, $mostBeerMonthArray, $bestBeerMonth, $bestBeerYear, $months);
+foreach ($beerResults as $key => $result) {
+    if ($result === $mostBeer) {
+        $mostBeerArray[] = $key;
+    }
+}
+v($mostBeerArray);
+$beerArrayName = [];
+numericToWordDate($mostBeerArray, $mostBeer, $mostBeerMonthArray, $bestBeerMonth, $bestBeerYear, $months);
 numericToWordDate($vodkaResults, $mostVodka, $mostVodkaMonthArray, $bestVodkaMonth, $bestVodkaYear, $months);
 numericToWordDate($wineResults, $mostWine, $mostWineMonthArray, $bestWineMonth, $bestWineYear, $months);
 numericToWordDate($whiskeyResults, $mostWhiskey, $mostWhiskeyMonthArray, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
 numericToWordDate($jagerResults, $mostJager, $mostJagerMonthArray, $bestJagerMonth, $bestJagerYear, $months);
+foreach ($mostBeerArray as $result) { // daty z tablic
+    $bestBeerYear = substr($result, 0, 4);
+    $bestBeerMonth = substr($result, 5, 2);
+    foreach ($months as $month) {
+        if ($bestBeerMonth === $month['id']) {
+            $beerArrayName[] = $bestBeerMonth = $month['month'];
+        }
+    }
+}
+$i = 0;
+foreach ($beerArrayName as $item) {
+   echo $item;
+    ++$i;
+}
+
+v($beerArrayName);
 ?>
 
 
