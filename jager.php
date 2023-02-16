@@ -10,6 +10,7 @@ $rekordy = $db->query($query)->fetch_all();
 $gramaturaJagera = '';
 $sumaJagera = 0;
 $iloscDni = 0;
+$sumaPieniedzy = 0;
 foreach ($rekordy as $rekord) {
     if ($rekord[1] == 5) {
         $sumaJagera += (int)$rekord[3];
@@ -20,12 +21,16 @@ foreach ($rekordy as $rekord) {
 $iloscDni /= 5;
 if ($sumaJagera != 0) {
     $sumaPieniedzy = $sumaJagera / 1000 * 75.99;
-    $formatedSumaPieniedzy = number_format($sumaPieniedzy, 2);
+    $sumaJagera = 'ok. ' . $sumaJagera . ' ml.';
 } else {
     $sumaJagera = 'Nie było pite';
 }
-$sumaJagera = rrr($db, $sumaJagera, $gramaturaJagera);
 
+if ($sumaPieniedzy != 0) {
+    $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+} else {
+    $formatedSumaPieniedzy = '0 zł';
+}
 
 ?>
 
@@ -66,7 +71,7 @@ $sumaJagera = rrr($db, $sumaJagera, $gramaturaJagera);
         <div class="font-weight"></div>
         <?php
         echo 'Suma wypitego jagera:' . '<div class="fb">' . $sumaJagera . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . 'około ' . $formatedSumaPieniedzy . ' zł' . '</div>';
+        echo '"Wypite" pieniądze:' . '<div class="fb">' . $formatedSumaPieniedzy . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
 

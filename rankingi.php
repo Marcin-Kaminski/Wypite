@@ -19,7 +19,11 @@ if (!empty($_GET)) {
 }
 
 $query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
-$minimumYear = $db->query($query)->fetch_assoc()['minimum_year']; // najnizszy rok z bazy danych
+if (isset($db->query($query)->fetch_assoc()['minimum_year'])) {
+    $minimumYear = $db->query($query)->fetch_assoc()['minimum_year'];
+} else {
+    $minimumYear = 2023;
+}
 $actualDate = date('Y'); // aktualny rok
 $startYear = $minimumYear; // najnizszy rok (do fora)
 $endYear = $actualDate; // aktualny rok (do fora)
@@ -37,42 +41,24 @@ mostAlcohol('3', $wineResults, $results);
 mostAlcohol('4', $whiskeyResults, $results);
 mostAlcohol('5', $jagerResults, $results);
 
-$mostBeerArray = [];
-
 mostAlcoholQuantity($beerResults, $mostBeer);
 mostAlcoholQuantity($vodkaResults, $mostVodka);
 mostAlcoholQuantity($wineResults, $mostWine);
 mostAlcoholQuantity($whiskeyResults, $mostWhiskey);
 mostAlcoholQuantity($jagerResults, $mostJager);
 
-foreach ($beerResults as $key => $result) {
-    if ($result === $mostBeer) {
-        $mostBeerArray[] = $key;
-    }
-}
-v($mostBeerArray);
-$beerArrayName = [];
-numericToWordDate($mostBeerArray, $mostBeer, $mostBeerMonthArray, $bestBeerMonth, $bestBeerYear, $months);
-numericToWordDate($vodkaResults, $mostVodka, $mostVodkaMonthArray, $bestVodkaMonth, $bestVodkaYear, $months);
-numericToWordDate($wineResults, $mostWine, $mostWineMonthArray, $bestWineMonth, $bestWineYear, $months);
-numericToWordDate($whiskeyResults, $mostWhiskey, $mostWhiskeyMonthArray, $bestWhiskeyMonth, $bestWhiskeyYear, $months);
-numericToWordDate($jagerResults, $mostJager, $mostJagerMonthArray, $bestJagerMonth, $bestJagerYear, $months);
-foreach ($mostBeerArray as $result) { // daty z tablic
-    $bestBeerYear = substr($result, 0, 4);
-    $bestBeerMonth = substr($result, 5, 2);
-    foreach ($months as $month) {
-        if ($bestBeerMonth === $month['id']) {
-            $beerArrayName[] = $bestBeerMonth = $month['month'];
-        }
-    }
-}
-$i = 0;
-foreach ($beerArrayName as $item) {
-   echo $item;
-    ++$i;
-}
+mostAlcArray($beerResults, $mostBeer, $mostBeerArray);
+mostAlcArray($vodkaResults, $mostVodka, $mostVodkaArray);
+mostAlcArray($wineResults, $mostWine, $mostWineArray);
+mostAlcArray($whiskeyResults, $mostWhiskey, $mostWhiskeyArray);
+mostAlcArray($jagerResults, $mostJager, $mostJagerArray);
 
-v($beerArrayName);
+
+xyz($mostBeerArray, $bestBeerYear, $bestBeerMonth, $months, $beerArrayName);
+xyz($mostVodkaArray, $bestVodkaYear, $bestVodkaMonth, $months, $vodkaArrayName);
+xyz($mostWineArray, $bestWineYear, $bestWineMonth, $months, $wineArrayName);
+xyz($mostWhiskeyArray, $bestWhiskeyYear, $bestWhiskeyMonth, $months, $whiskeyArrayName);
+xyz($mostJagerArray, $bestJagerYear, $bestJagerMonth, $months, $jagerArrayName);
 ?>
 
 
@@ -152,36 +138,12 @@ v($beerArrayName);
     <div class="stripe clearfix"></div>
     <div class="color letter-size">
         <?php
-        if (!is_null($mostBeer)) {
-            echo'<div class="alcohol-name">' . 'Piwsko'  . '</div>' .
-                '<div class="alcohol ">' . $mostBeer . ' szt.'  . '</div>' .
-                '<div class="quantity">' . $bestBeerMonth . ' ' . $bestBeerYear . '</div>' .
-                '<div class="clearfix">' . '</div>';
-        }
-        if (!is_null($mostVodka)) {
-            echo'<div class="alcohol-name">' . 'Wódka'  . '</div>' .
-              '<div class="alcohol ">' . 'ok. ' . $mostVodka . ' ml.'  . '</div>' .
-              '<div class="quantity">' . $bestVodkaMonth . ' ' . $bestVodkaYear . '</div>' .
-              '<div class="clearfix">' . '</div>';
-        }
-        if (!is_null($mostWhiskey)) {
-            echo'<div class="alcohol-name">' . 'Ruda'  . '</div>' .
-              '<div class="alcohol ">' . 'ok. ' . $mostWhiskey . ' ml.'  . '</div>' .
-              '<div class="quantity">' . $bestWhiskeyMonth . ' ' . $bestWhiskeyYear . '</div>' .
-              '<div class="clearfix">' . '</div>';
-        }
-        if (!is_null($mostWine)) {
-            echo'<div class="alcohol-name">' . 'Jabol'  . '</div>' .
-              '<div class="alcohol ">' . 'ok. ' .  $mostWine . ' ml.'  . '</div>' .
-              '<div class="quantity">' . $bestWineMonth . ' ' . $bestWineYear . '</div>' .
-              '<div class="clearfix">' . '</div>';
-        }
-        if (!is_null($mostJager)) {
-            echo'<div class="alcohol-name">' . 'Jager'  . '</div>' .
-              '<div class="alcohol ">' . 'ok. ' . $mostJager . ' ml.'  . '</div>' .
-              '<div class="quantity">' . $bestJagerMonth . ' ' . $bestJagerYear . '</div>' .
-              '<div class="clearfix">' . '</div>' . '<br>';
-        }
+        beer($mostBeer, 'Piwsko', $beerArrayName, $bestBeerYear);
+        notBeer($mostVodka, 'Wóda', $vodkaArrayName, $bestVodkaYear);
+        notBeer($mostWhiskey, 'Ruda', $whiskeyArrayName, $bestWhiskeyYear);
+        notBeer($mostWine, 'Jabol', $wineArrayName, $bestWineYear);
+        notBeer($mostJager, 'Jager', $jagerArrayName, $bestJagerYear);
+        echo '<div class="clearfix">' . '</div>';
         ?>
     </div>
     <div class="clearfix"></div>

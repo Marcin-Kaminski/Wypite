@@ -9,6 +9,8 @@ $rekordy = $db->query($query)->fetch_all();
 $gramaturaRudej = '';
 $sumaRudej = 0;
 $iloscDni = 0;
+$sumaPieniedzy = 0;
+
 foreach ($rekordy as $rekord) {
     if ($rekord[1] == 4) {
         $sumaRudej += (int)$rekord[3];
@@ -19,13 +21,16 @@ foreach ($rekordy as $rekord) {
 $iloscDni /= 4;
 if ($sumaRudej != 0) {
     $sumaPieniedzy = $sumaRudej / 700 * 89.99 ;
-    $formatedSumaPieniedzy = number_format($sumaPieniedzy, 2);
+    $sumaRudej = 'ok. ' . $sumaRudej . ' ml.';
 } else {
     $sumaRudej = 'Nie było pite';
 }
-$sumaRudej = rrr($db, $sumaRudej, $gramaturaRudej);
 
-
+if ($sumaPieniedzy != 0) {
+    $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+} else {
+    $formatedSumaPieniedzy = '0 zł';
+}
 
 ?>
 
@@ -66,7 +71,7 @@ $sumaRudej = rrr($db, $sumaRudej, $gramaturaRudej);
         <div class="font-weight"></div>
         <?php
         echo 'Suma wypitej rudej:' . '<div class="fb">' . $sumaRudej . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . 'około ' . $formatedSumaPieniedzy . ' zł' . '</div>';
+        echo '"Wypite" pieniądze:' . '<div class="fb">' . $formatedSumaPieniedzy . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
 

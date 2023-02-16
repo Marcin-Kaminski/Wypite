@@ -37,23 +37,34 @@ function mostAlcohol($alcoholId, &$alcoholResults, $results)
 
 function mostAlcoholQuantity($alcoholResults, &$mostAlcohol)
 {
-    foreach ($alcoholResults as $result) {
-        if ($result > $mostAlcohol) {
-            $mostAlcohol = $result;
+    if (!is_null($alcoholResults)) {
+        foreach ($alcoholResults as $result) {
+            if ($result > $mostAlcohol) {
+                $mostAlcohol = $result;
+            }
         }
     }
 }
 
-function numericToWordDate($alcoholResults, $mostAlcohol, &$mostAlcoholMonthArray, &$bestAlcoholMonth, &$bestAlcoholYear, $months)
+function mostAlcArray($alcoholResults, $mostAlcohol, &$mostAlcoholArray)
 {
-    foreach ($alcoholResults as $key => $result) { // daty z tablic
-        if ($mostAlcohol === $result) {
-            $mostAlcoholMonthArray[] = $key;
-            $bestAlcoholYear = substr($key, 0, 4);
-            $bestAlcoholMonth = substr($key, 5, 2);
+    if (!is_null($alcoholResults)) {
+        foreach ($alcoholResults as $key => $result) {
+            if ($result === $mostAlcohol) {
+                $mostAlcoholArray[] = $key;
+            }
+        }
+    }
+}
+function xyz($mostAlcoholArray, &$bestAlcoholYear, &$bestAlcoholMonth, $months, &$alcoholArrayName)
+{
+    if (!is_null($mostAlcoholArray)) {
+        foreach ($mostAlcoholArray as $result) { // daty z tablic
+            $bestAlcoholYear = substr($result, 0, 4);
+            $bestAlcoholMonth = substr($result, 5, 2);
             foreach ($months as $month) {
                 if ($bestAlcoholMonth === $month['id']) {
-                    $bestAlcoholMonth = $month['month'];
+                    $alcoholArrayName[] = $bestAlcoholMonth = $month['month'];
                 }
             }
         }
@@ -77,5 +88,38 @@ function checkIf($sum): string
         return '<div class="quantity">' . 'Nie było pite' . '</div>';
     } else {
         return '<div class="quantity">' . $sum . ' ml.'  . '</div>';
+    }
+}
+
+function record($alcoholArrayName, $bestAlcoholYear)
+{
+    $i = 0;
+    foreach ($alcoholArrayName as $item) {
+        echo '<div>' . ($item) . ' ' . ($bestAlcoholYear) . '</div>';
+        ++$i;
+    }
+}
+
+function beer($mostAlcohol, $alcoholName, $alcoholArrayName, $bestAlcoholYear)
+{
+    if (!is_null($mostAlcohol)) {
+        echo'<div class="alcohol-name">' . $alcoholName  . '</div>' .
+            '<div class="alcohol ">' . $mostAlcohol . ' szt.' . '</div>' .
+            '<div class="quantity text-align-right">';
+        record($alcoholArrayName, $bestAlcoholYear);
+        echo'</div>' .
+            '<div class="clearfix">' . '</div>';
+    }
+}
+
+function notBeer($mostAlcohol, $alcoholName, $alcoholArrayName, $bestAlcoholYear)
+{
+    if (!is_null($mostAlcohol)) {
+        echo'<div class="alcohol-name">' . $alcoholName  . '</div>' .
+            '<div class="alcohol">' . 'ok. ' .  $mostAlcohol . ' ml.'  . '</div>' .
+            '<div class="quantity text-align-right">';
+        record($alcoholArrayName, $bestAlcoholYear);
+        echo'</div>' .
+            '<div class="clearfix">' . '</div>';
     }
 }

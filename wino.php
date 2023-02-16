@@ -10,6 +10,7 @@ $rekordy = $db->query($query)->fetch_all();
 $gramaturaWina = '';
 $sumaWina = 0;
 $iloscDni = 0;
+$sumaPieniedzy = 0;
 foreach ($rekordy as $rekord) {
     if ($rekord[1] == 3) {
         $sumaWina += (int)$rekord[3];
@@ -20,14 +21,16 @@ foreach ($rekordy as $rekord) {
 $iloscDni /= 3;
 if ($sumaWina != 0) {
     $sumaPieniedzy = $sumaWina / 750 * 24.99 ;
-    $formatedSumaPieniedzy = number_format($sumaPieniedzy, 2);
+    $sumaWina = 'ok. ' . $sumaWina . ' ml.';
 } else {
     $sumaWina = 'Nie było pite';
 }
-$sumaWina = rrr($db, $sumaWina, $gramaturaWina);
 
-
-
+if ($sumaPieniedzy != 0) {
+    $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+} else {
+    $formatedSumaPieniedzy = '0 zł';
+}
 ?>
 
 <!doctype html>
@@ -67,7 +70,7 @@ $sumaWina = rrr($db, $sumaWina, $gramaturaWina);
         <div class="font-weight"></div>
         <?php
         echo 'Suma wypitego wina:' . '<div class="fb">' . $sumaWina . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . 'około ' . $formatedSumaPieniedzy . ' zł' . '</div>';
+        echo '"Wypite" pieniądze:' . '<div class="fb">' . $formatedSumaPieniedzy . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
 

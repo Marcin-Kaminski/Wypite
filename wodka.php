@@ -4,11 +4,12 @@ require_once 'connect.php';
 
 $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-$query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
+$query = "SELECT * FROM rekord";
 $rekordy = $db->query($query)->fetch_all();
 $gramaturaWodki = '';
 $sumaWodki = 0;
 $iloscDni = 0;
+$sumaPieniedzy = 0;
 foreach ($rekordy as $rekord) {
     if ($rekord[1] == 2) {
         $sumaWodki += (int)$rekord[3];
@@ -19,11 +20,15 @@ foreach ($rekordy as $rekord) {
 $iloscDni /= 2;
 if ($sumaWodki != 0) {
     $sumaPieniedzy = $sumaWodki / 500 * 24.99;
+    $sumaWodki = 'ok. ' . $sumaWodki . ' ml.';
 } else {
     $sumaWodki = 'Nie było pite';
 }
-$sumaWodki = rrr($db, $sumaWodki, $gramaturaWodki);
-$formatedSumaPieniedzy = number_format($sumaPieniedzy, 2);
+if ($sumaPieniedzy != 0) {
+    $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+} else {
+    $formatedSumaPieniedzy = '0 zł';
+}
 
 
 ?>
@@ -65,7 +70,7 @@ $formatedSumaPieniedzy = number_format($sumaPieniedzy, 2);
         <div class="font-weight"></div>
         <?php
         echo 'Suma wypitej wódki:' . '<div class="fb">' . $sumaWodki . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . 'około ' . $formatedSumaPieniedzy . ' zł.' . '</div>';
+        echo '"Wypite" pieniądze:' . '<div class="fb">' . $formatedSumaPieniedzy . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
 

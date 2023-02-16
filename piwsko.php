@@ -8,7 +8,8 @@ $query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
 $rekordy = $db->query($query)->fetch_all();
 $gramaturaPiwa = '';
 $sumaPiwa = 0;
-$iloscDni = 0;
+$iloscDni = '0 zł';
+$sumaPieniedzy = 0;
 foreach ($rekordy as $rekord) {
     switch ($rekord[1]) {
         case '1':
