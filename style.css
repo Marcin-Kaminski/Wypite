@@ -14,7 +14,30 @@ body {
     text-transform: uppercase;
     display: block;
 }
-
+.login {
+    width: 244px;
+    height: 49px;
+    margin: 1px 1px 20px;
+    background-color: black;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 47px;
+    color: rgb(242,242,245,255);
+    text-transform: uppercase;
+    display: block;
+}
+.register-tables{
+    width: 244px;
+    height: 49px;
+    margin: 5px 1px 5px;
+    background-color: black;
+    border-radius: 30px;
+    text-align: left;
+    line-height: 47px;
+    color: rgb(242,242,245,255);
+    display: block;
+    font-size: 15px;
+}
 .wiecej-rankingow {
     width: 248px;
     height: 37px;
@@ -39,9 +62,8 @@ body {
     background-color: white;
     -webkit-box-shadow: 0 0 20px -8px rgba(66, 68, 90, 1);
     -moz-box-shadow: 0 0 20px -8px rgba(66, 68, 90, 1);
-    box-shadow:  0 0 20px -8px rgba(66, 68, 90, 1);
+    box-shadow: 0 0 20px -8px rgba(66, 68, 90, 1);
 }
-
 .alcohol{
     float: left;
 }
@@ -232,4 +254,9 @@ text-align: center;
 }
 .text-align-right {
     text-align: right;
+}
+.error{;
+    color: red;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
