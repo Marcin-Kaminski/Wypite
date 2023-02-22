@@ -1,7 +1,29 @@
 <?php
+session_start();
+
 require_once 'helpers.php';
 require_once 'connect.php';
 $db = new mysqli($host, $db_user, $db_password, $db_name);
+if (isset($_POST['submit'])) {
+    $login = $_POST['login'];
+    $password = $_POST['password'];
+    $login = htmlentities($login, ENT_QUOTES, "UTF-8");
+    $flag = false;
+    $query = "SELECT * FROM users WHERE user = '$login'";
+    $result = $db->query($query);
+    $doesUserExist = $result->num_rows;
+
+    if ($doesUserExist > 0) {
+        $userData = $result->fetch_assoc();
+        if (password_verify($password, $userData['password'])) {
+            $_SESSION['logged'] = true;
+            $_SESSION['id'] = $userData['id'];
+            v($_SESSION['id']);
+            header('location: main_page.php');
+        }
+    }
+}
+
 ?>
 
 
@@ -19,7 +41,7 @@ $db = new mysqli($host, $db_user, $db_password, $db_name);
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         body {
-            background-image: url("zdjecia/astronaut_beer.jpg");
+            /*background-image: url("zdjecia/astronaut_beer.jpg");*/
             background-size: cover;
         }
         }
@@ -28,51 +50,18 @@ $db = new mysqli($host, $db_user, $db_password, $db_name);
 <body>
 <div class="box">
     <div style="text-align: center;">
-        <img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
+        <a href="index.php"><img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
-    <div class="text-align-center">Witaj, masz już konto?</div> <br>
-    <a href="login.php" class="login">zaloguj się</a>
-    <a href="registration.php" class="login">zarejestruj się</a>
-    <div class="color mb-20">
-        <img src="zdjecia/bp_icon.png" alt="napraw kod" class="quantity">
-        <div class="alcohol fb">Ranking za obecny miesiąc</div>
-        <div class="clearfix"></div>
-        <div class="stripe percent-80 mt-0"></div>
-        <div class="font-weight"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Piwsko</div>
-        <div class="quantity">0 szt</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Wóda</div>
-        <div class="quantity">0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Jabolce</div>
-        <div class="quantity">0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Ruda</div>
-        <div class="quantity">0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Jager</div>
-        <div class="quantity"> 0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="wiecej-rankingow">Więcej dzikich rankingów</div>
+    <form method="post">
+        Login:
+        <input type="text" class="register-tables" autocomplete="off" name="login">
+        Hasło:
+        <input type="password" class="register-tables" autocomplete="off" name="password">
+        <button type="submit" class="popraw-rekord mb-0" style="font-size: 15px; width: 255px " name="submit">Zaloguj się</button>
+        <a href="registration.php" class="popraw-rekord mb-0" style="width: 255px">Przejdź do rejestracji</a>
+    </form>
 </div>
 
 </body>

@@ -1,60 +1,65 @@
 <?php
-require_once 'helpers.php';
-require_once 'connect.php';
-$db = new mysqli($host, $db_user, $db_password, $db_name);
+session_start();
+if ($_SESSION['logged'] === true) {
+    require_once 'helpers.php';
+    require_once 'connect.php';
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-if (!empty($_POST)) {
-    $query = "INSERT INTO rekord(alcohol_id,quantity) VALUES($_POST[alcohol],$_POST[ilosc])";
-    $db->query($query);
-}
-$query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
-$rekordy = $db->query($query)->fetch_all();
-
-$gramaturaJaboli = '';
-$gramaturaPiwa = '';
-$gramaturaWodki = '';
-$gramaturaRudej = '';
-$gramaturaJagera = '';
-
-$sumaPiwa = 0;
-$sumaWodki = 0;
-$sumaJaboli = 0;
-$sumaRudej = 0;
-$sumaJagera = 0;
-
-foreach ($rekordy as $rekord) {
-    switch ($rekord[1]) {
-        case '1':
-            $sumaPiwa += (int)$rekord[3];
-            $gramaturaPiwa = $rekord[4];
-            break;
-        case '2':
-            $sumaWodki += (int)$rekord[3];
-            $gramaturaWodki = $rekord[4];
-            break;
-        case '3':
-            $sumaJaboli += (int)$rekord[3];
-            $gramaturaJaboli = $rekord[4];
-            break;
-        case '4':
-            $sumaRudej += (int)$rekord[3];
-            $gramaturaRudej = $rekord[4];
-            break;
-        case '5':
-            $sumaJagera += (int)$rekord[3];
-            $gramaturaJagera = $rekord[4];
+    if (!empty($_POST)) {
+        $query = "INSERT INTO rekord(alcohol_id,quantity) VALUES($_POST[alcohol],$_POST[ilosc])";
+        $db->query($query);
     }
-}
-$gramaturaJaboli = rrr($db, $sumaJaboli, $gramaturaJaboli);
-$gramaturaRudej = rrr($db, $sumaRudej, $gramaturaRudej);
-$gramaturaWodki = rrr($db, $sumaWodki, $gramaturaWodki);
-$gramaturaJagera = rrr($db, $sumaJagera, $gramaturaJagera);
+    $query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
+    $rekordy = $db->query($query)->fetch_all();
 
-if ($sumaPiwa != 0) {
-    $sumaPiwa = $sumaPiwa . ' szt.';
+    $gramaturaJaboli = '';
+    $gramaturaPiwa = '';
+    $gramaturaWodki = '';
+    $gramaturaRudej = '';
+    $gramaturaJagera = '';
+
+    $sumaPiwa = 0;
+    $sumaWodki = 0;
+    $sumaJaboli = 0;
+    $sumaRudej = 0;
+    $sumaJagera = 0;
+
+    foreach ($rekordy as $rekord) {
+        switch ($rekord[1]) {
+            case '1':
+                $sumaPiwa += (int)$rekord[3];
+                $gramaturaPiwa = $rekord[4];
+                break;
+            case '2':
+                $sumaWodki += (int)$rekord[3];
+                $gramaturaWodki = $rekord[4];
+                break;
+            case '3':
+                $sumaJaboli += (int)$rekord[3];
+                $gramaturaJaboli = $rekord[4];
+                break;
+            case '4':
+                $sumaRudej += (int)$rekord[3];
+                $gramaturaRudej = $rekord[4];
+                break;
+            case '5':
+                $sumaJagera += (int)$rekord[3];
+                $gramaturaJagera = $rekord[4];
+        }
+    }
+    $gramaturaJaboli = rrr($db, $sumaJaboli, $gramaturaJaboli);
+    $gramaturaRudej = rrr($db, $sumaRudej, $gramaturaRudej);
+    $gramaturaWodki = rrr($db, $sumaWodki, $gramaturaWodki);
+    $gramaturaJagera = rrr($db, $sumaJagera, $gramaturaJagera);
+
+    if ($sumaPiwa != 0) {
+        $sumaPiwa = $sumaPiwa . ' szt.';
+    } else {
+        $sumaPiwa = 'Nie było pite';
+    }
 } else {
-    $sumaPiwa = 'Nie było pite';
-}
+    header('location: index.php');
+} // ZROB WYLOGOWANIE
 ?>
 
 
