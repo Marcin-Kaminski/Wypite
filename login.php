@@ -1,27 +1,31 @@
 <?php
 session_start();
+if (!isset($_SESSION['logged'])) {
+    require_once 'helpers.php';
+    require_once 'connect.php';
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
+    if (isset($_POST['submit'])) {
+        $login = $_POST['login'];
+        $password = $_POST['password'];
+        $login = htmlentities($login, ENT_QUOTES, "UTF-8");
+        $flag = false;
+        $query = "SELECT * FROM users WHERE user = '$login'";
+        $result = $db->query($query);
+        $doesUserExist = $result->num_rows;
 
-require_once 'helpers.php';
-require_once 'connect.php';
-$db = new mysqli($host, $db_user, $db_password, $db_name);
-if (isset($_POST['submit'])) {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
-    $login = htmlentities($login, ENT_QUOTES, "UTF-8");
-    $flag = false;
-    $query = "SELECT * FROM users WHERE user = '$login'";
-    $result = $db->query($query);
-    $doesUserExist = $result->num_rows;
-
-    if ($doesUserExist > 0) {
-        $userData = $result->fetch_assoc();
-        if (password_verify($password, $userData['password'])) {
-            $_SESSION['logged'] = true;
-            $_SESSION['id'] = $userData['id'];
-            v($_SESSION['id']);
-            header('location: main_page.php');
+        if ($doesUserExist > 0) {
+            $userData = $result->fetch_assoc();
+            if (password_verify($password, $userData['password'])) {
+                $_SESSION['logged'] = true;
+                $_SESSION['userId'] = $userData['id'];
+                header('location: main_page.php');
+            }
+        } else {
+            $eLogging = 'Błędny login lub hasło';
         }
     }
+} else {
+    header('location: main_page.php');
 }
 
 ?>
@@ -41,7 +45,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         body {
-            /*background-image: url("zdjecia/astronaut_beer.jpg");*/
+            background-image: url("zdjecia/astronaut_beer.jpg");
             background-size: cover;
         }
         }
@@ -59,6 +63,11 @@ if (isset($_POST['submit'])) {
         <input type="text" class="register-tables" autocomplete="off" name="login">
         Hasło:
         <input type="password" class="register-tables" autocomplete="off" name="password">
+        <?php
+        if (isset($eLogging)) {
+            echo '<div class="error">' . $eLogging . '</div>';
+        }
+        ?>
         <button type="submit" class="popraw-rekord mb-0" style="font-size: 15px; width: 255px " name="submit">Zaloguj się</button>
         <a href="registration.php" class="popraw-rekord mb-0" style="width: 255px">Przejdź do rejestracji</a>
     </form>

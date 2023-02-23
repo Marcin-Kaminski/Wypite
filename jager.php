@@ -1,37 +1,38 @@
 <?php
 session_start();
-require_once 'helpers.php';
-require_once 'connect.php';
-
-$db = new mysqli($host, $db_user, $db_password, $db_name);
-
-$query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
-$rekordy = $db->query($query)->fetch_all();
-$gramaturaJagera = '';
-$sumaJagera = 0;
-$iloscDni = 0;
-$sumaPieniedzy = 0;
-foreach ($rekordy as $rekord) {
-    if ($rekord[1] == 5) {
-        $sumaJagera += (int)$rekord[3];
-        $gramaturaJagera = $rekord[4];
-        $iloscDni += $rekord[1];
+if ($_SESSION['logged'] === true) {
+    require_once 'helpers.php';
+    require_once 'connect.php';
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
+    $query = "SELECT * FROM rekord WHERE user_id = {$_SESSION['userId']}";
+    $rekordy = $db->query($query)->fetch_all();
+    $gramaturaJagera = '';
+    $sumaJagera = 0;
+    $iloscDni = 0;
+    $sumaPieniedzy = 0;
+    foreach ($rekordy as $rekord) {
+        if ($rekord[1] == 5) {
+            $sumaJagera += (int)$rekord[3];
+            $gramaturaJagera = $rekord[4];
+            $iloscDni += $rekord[1];
+        }
     }
-}
-$iloscDni /= 5;
-if ($sumaJagera != 0) {
-    $sumaPieniedzy = $sumaJagera / 1000 * 75.99;
-    $sumaJagera = 'ok. ' . $sumaJagera . ' ml.';
-} else {
-    $sumaJagera = 'Nie było pite';
-}
+    $iloscDni /= 5;
+    if ($sumaJagera != 0) {
+        $sumaPieniedzy = $sumaJagera / 1000 * 75.99;
+        $sumaJagera = 'ok. ' . $sumaJagera . ' ml.';
+    } else {
+        $sumaJagera = 'Nie było pite';
+    }
 
-if ($sumaPieniedzy != 0) {
-    $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+    if ($sumaPieniedzy != 0) {
+        $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+    } else {
+        $formatedSumaPieniedzy = '0 zł';
+    }
 } else {
-    $formatedSumaPieniedzy = '0 zł';
+    header('location: index.php');
 }
-
 ?>
 
 <!doctype html>

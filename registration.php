@@ -1,11 +1,12 @@
 <?php
 session_start();
-if ($_SESSION['logged'] === true) {
+if (isset($_SESSION['logged'])) {
     header('location: main_page.php');
 } else {
     require_once 'helpers.php';
     require_once 'connect.php';
     $db = new mysqli($host, $db_user, $db_password, $db_name);
+
     if (isset($_POST['submit'])) {
         $login = $_POST['login'];
         $password1 = $_POST['password1'];
@@ -54,6 +55,7 @@ if ($_SESSION['logged'] === true) {
         }
     }
 }
+
 ?>
 
 

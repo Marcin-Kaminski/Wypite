@@ -4,12 +4,15 @@ if ($_SESSION['logged'] === true) {
     require_once 'helpers.php';
     require_once 'connect.php';
     $db = new mysqli($host, $db_user, $db_password, $db_name);
-
+    if (isset($_POST['logout'])) {
+        unset($_SESSION['logged']);
+        header('location: index.php');
+    }
     if (!empty($_POST)) {
         $query = "INSERT INTO rekord(alcohol_id,quantity) VALUES($_POST[alcohol],$_POST[ilosc])";
         $db->query($query);
     }
-    $query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
+    $query = "SELECT * FROM rekord WHERE user_id = {$_SESSION['userId']}";
     $rekordy = $db->query($query)->fetch_all();
 
     $gramaturaJaboli = '';
@@ -59,7 +62,7 @@ if ($_SESSION['logged'] === true) {
     }
 } else {
     header('location: index.php');
-} // ZROB WYLOGOWANIE
+}
 ?>
 
 
@@ -84,7 +87,6 @@ if ($_SESSION['logged'] === true) {
     </style>
 </head>
 <body>
-
 <div class="box">
     <div style="text-align: center;">
         <img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
@@ -143,6 +145,9 @@ if ($_SESSION['logged'] === true) {
     <div class="wiecej-rankingow">
     <a href="rankingi.php" class="wiecej-rankingow">Więcej dzikich rankingów</a>
     </div>
+    <form method="post">
+        <button class="popraw-rekord" name="logout">wyloguj sie</button>
+    </form>
 </div>
 
 </body>

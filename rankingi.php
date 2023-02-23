@@ -3,64 +3,68 @@ session_start();
 require_once 'helpers.php';
 require_once 'connect.php';
 $db = new mysqli($host, $db_user, $db_password, $db_name);
-
-if (!empty($_GET)) {
-    $getYear = $_GET['year'];
-    $getMonth = $_GET['month'];
-    if ($getMonth < 10) {
-        $getMonth = '0' . $getMonth;
+if ($_SESSION['logged'] === true) {
+    if (!empty($_GET)) {
+        $getYear = $_GET['year'];
+        $getMonth = $_GET['month'];
+        if ($getMonth < 10) {
+            $getMonth = '0' . $getMonth;
+        }
+        $query = "SELECT * FROM rekord WHERE user_id = {$_SESSION['userId']} AND YEAR(created_on) = " . $getYear . " AND MONTH(created_on) = " . $getMonth . "";
+        $choosedDates = $db->query($query)->fetch_all();
+        $beerSum = chosenAlcoholQuantity($choosedDates, '1');
+        $vodkaSum = chosenAlcoholQuantity($choosedDates, '2');
+        $wineSum = chosenAlcoholQuantity($choosedDates, '3');
+        $whiskeySum = chosenAlcoholQuantity($choosedDates, '4');
+        $jagerSum = chosenAlcoholQuantity($choosedDates, '5');
     }
-    $query = "SELECT * FROM rekord WHERE YEAR(created_on) = " . $getYear . " AND MONTH(created_on) = " . $getMonth . "";
-    $choosedDates = $db->query($query)->fetch_all();
-    $beerSum = chosenAlcoholQuantity($choosedDates, '1');
-    $vodkaSum = chosenAlcoholQuantity($choosedDates, '2');
-    $wineSum = chosenAlcoholQuantity($choosedDates, '3');
-    $whiskeySum = chosenAlcoholQuantity($choosedDates, '4');
-    $jagerSum = chosenAlcoholQuantity($choosedDates, '5');
-}
 
-$query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
-if (isset($db->query($query)->fetch_assoc()['minimum_year'])) {
-    $minimumYear = $db->query($query)->fetch_assoc()['minimum_year'];
+    $query = "SELECT MIN(YEAR(created_on)) AS minimum_year FROM rekord";
+    if (isset($db->query($query)->fetch_assoc()['minimum_year'])) {
+        $minimumYear = $db->query($query)->fetch_assoc()['minimum_year'];
+    } else {
+        $minimumYear = 2023;
+    }
+    $actualDate = date('Y'); // aktualny rok
+    $startYear = $minimumYear; // najnizszy rok (do fora)
+    $endYear = $actualDate; // aktualny rok (do fora)
+    $months = [['id' => '01', 'month' => 'Styczeń'], ['id' => '02', 'month' => 'Luty'], ['id' => '03', 'month' => 'Marzec'],
+        ['id' => '04', 'month' => 'Kwiecień'], ['id' => '05', 'month' => 'Maj'], ['id' => '06', 'month' => 'Czerwiec'],
+        ['id' => '07', 'month' => 'Lipiec'], ['id' => '08', 'month' => 'Sierpień'], ['id' => '09', 'month' => 'Wrzesień'],
+        ['id' => '10', 'month' => 'Październik'], ['id' => '11', 'month' => 'Listopad'],
+        ['id' => '12', 'month' => 'Grudzień']];
+
+    $query = "SELECT * FROM rekord WHERE user_id = {$_SESSION['userId']}";
+    $results = $db->query($query);
+    mostAlcohol('1', $beerResults, $results);
+    mostAlcohol('2', $vodkaResults, $results);
+    mostAlcohol('3', $wineResults, $results);
+    mostAlcohol('4', $whiskeyResults, $results);
+    mostAlcohol('5', $jagerResults, $results);
+
+    mostAlcoholQuantity($beerResults, $mostBeer);
+    mostAlcoholQuantity($vodkaResults, $mostVodka);
+    mostAlcoholQuantity($wineResults, $mostWine);
+    mostAlcoholQuantity($whiskeyResults, $mostWhiskey);
+    mostAlcoholQuantity($jagerResults, $mostJager);
+
+    mostAlcArray($beerResults, $mostBeer, $mostBeerArray);
+    mostAlcArray($vodkaResults, $mostVodka, $mostVodkaArray);
+    mostAlcArray($wineResults, $mostWine, $mostWineArray);
+    mostAlcArray($whiskeyResults, $mostWhiskey, $mostWhiskeyArray);
+    mostAlcArray($jagerResults, $mostJager, $mostJagerArray);
+
+
+    xyz($mostBeerArray, $bestBeerYear, $bestBeerMonth, $months, $beerArrayName);
+    xyz($mostVodkaArray, $bestVodkaYear, $bestVodkaMonth, $months, $vodkaArrayName);
+    xyz($mostWineArray, $bestWineYear, $bestWineMonth, $months, $wineArrayName);
+    xyz($mostWhiskeyArray, $bestWhiskeyYear, $bestWhiskeyMonth, $months, $whiskeyArrayName);
+    xyz($mostJagerArray, $bestJagerYear, $bestJagerMonth, $months, $jagerArrayName);
 } else {
-    $minimumYear = 2023;
+    header('location: index.php');
 }
-$actualDate = date('Y'); // aktualny rok
-$startYear = $minimumYear; // najnizszy rok (do fora)
-$endYear = $actualDate; // aktualny rok (do fora)
-$months = [['id' => '01', 'month' => 'Styczeń'], ['id' => '02', 'month' => 'Luty'], ['id' => '03', 'month' => 'Marzec'],
-    ['id' => '04', 'month' => 'Kwiecień'], ['id' => '05', 'month' => 'Maj'], ['id' => '06', 'month' => 'Czerwiec'],
-    ['id' => '07', 'month' => 'Lipiec'], ['id' => '08', 'month' => 'Sierpień'], ['id' => '09', 'month' => 'Wrzesień'],
-    ['id' => '10', 'month' => 'Październik'], ['id' => '11', 'month' => 'Listopad'],
-    ['id' => '12', 'month' => 'Grudzień']];
-
-$query = "SELECT * FROM rekord";
-$results = $db->query($query);
-mostAlcohol('1', $beerResults, $results);
-mostAlcohol('2', $vodkaResults, $results);
-mostAlcohol('3', $wineResults, $results);
-mostAlcohol('4', $whiskeyResults, $results);
-mostAlcohol('5', $jagerResults, $results);
-
-mostAlcoholQuantity($beerResults, $mostBeer);
-mostAlcoholQuantity($vodkaResults, $mostVodka);
-mostAlcoholQuantity($wineResults, $mostWine);
-mostAlcoholQuantity($whiskeyResults, $mostWhiskey);
-mostAlcoholQuantity($jagerResults, $mostJager);
-
-mostAlcArray($beerResults, $mostBeer, $mostBeerArray);
-mostAlcArray($vodkaResults, $mostVodka, $mostVodkaArray);
-mostAlcArray($wineResults, $mostWine, $mostWineArray);
-mostAlcArray($whiskeyResults, $mostWhiskey, $mostWhiskeyArray);
-mostAlcArray($jagerResults, $mostJager, $mostJagerArray);
-
-
-xyz($mostBeerArray, $bestBeerYear, $bestBeerMonth, $months, $beerArrayName);
-xyz($mostVodkaArray, $bestVodkaYear, $bestVodkaMonth, $months, $vodkaArrayName);
-xyz($mostWineArray, $bestWineYear, $bestWineMonth, $months, $wineArrayName);
-xyz($mostWhiskeyArray, $bestWhiskeyYear, $bestWhiskeyMonth, $months, $whiskeyArrayName);
-xyz($mostJagerArray, $bestJagerYear, $bestJagerMonth, $months, $jagerArrayName);
 ?>
+
 
 
 <!doctype html>

@@ -3,6 +3,9 @@ session_start();
 require_once 'helpers.php';
 require_once 'connect.php';
 $db = new mysqli($host, $db_user, $db_password, $db_name);
+if (isset($_SESSION['logged'])) {
+    header('location: main_page.php');
+}
 ?>
 
 
@@ -33,7 +36,7 @@ $db = new mysqli($host, $db_user, $db_password, $db_name);
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
-    <div class="text-align-center">Witaj, masz już konto?</div> <br>
+    <div class="color text-align-center">Witaj, masz już konto?</div> <br>
     <a href="login.php" class="login">zaloguj się</a>
     <a href="registration.php" class="login">zarejestruj się</a>
     <div class="color mb-20">

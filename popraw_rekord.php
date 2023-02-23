@@ -1,70 +1,81 @@
 <?php
 session_start();
-require_once 'helpers.php';
-require_once 'connect.php';
-$db = new mysqli($host, $db_user, $db_password, $db_name);
+if ($_SESSION['logged'] === true) {
+    require_once 'helpers.php';
+    require_once 'connect.php';
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-$query2 = "SELECT * FROM gramatura";
-$gramaturyQuery = $db->query($query2);
-$gramatury = $gramaturyQuery->fetch_all();
+    $query2 = "SELECT * FROM gramatura";
+    $gramaturyQuery = $db->query($query2);
+    $gramatury = $gramaturyQuery->fetch_all();
 
-$query = "SELECT * FROM alcohols";
-$alcoholsQuery = $db->query($query);
-$alcohols = $alcoholsQuery->fetch_all();
+    $query = "SELECT * FROM alcohols";
+    $alcoholsQuery = $db->query($query);
+    $alcohols = $alcoholsQuery->fetch_all();
 
+    if (isset($_POST['submit'])) {
+        $alcohol = $_POST['alcohol'];
+        $gramatura = $_POST['gramatura'];
+        $wszystkoOk = true;
 
+        if ($alcohol == 1 && $gramatura == 2) {
+            $wszystkoOk = false;
+            $gramaturaError = 'Piwo liczymy na sztuki';
+        }
+        if ($_POST['number'] < 0) {
+            $wszystkoOk = false;
+            $numberError = "Wpisz liczbe dodatnią";
+        }
+        if (empty($_POST['number'])) {
+            $wszystkoOk = false;
+            $numberError = "Wpisz liczbe";
+        }
+        if (empty($_POST['alcohol'])) {
+            $wszystkoOk = false;
+            $alcoholError = "Wybierz alkohol";
+        }
+        if (empty($_POST['gramatura'])) {
+            $wszystkoOk = false;
+            $gramaturaError = "Wybierz gramature";
+        }
+        if (($alcohol == 2 || $alcohol == 3 || $alcohol == 4 || $alcohol == 5) && $gramatura == 1) {
+            $wszystkoOk = false;
+            $gramaturaError = 'Tylko piwo liczymy na' . '<br>' . 'sztuki!';
+        }
 
-
-
-if (isset($_POST['submit'])) {
-
-    $alcohol = $_POST['alcohol'];
-    $gramatura = $_POST['gramatura'];
-    $wszystkoOk = true;
-
-    if ($alcohol == 1 && $gramatura == 2) {
-        $wszystkoOk = false;
-        $gramaturaError = 'Piwo liczymy na sztuki';
+        if ($wszystkoOk === true) {
+            $query = "INSERT INTO rekord(alcohol_id,quantity,gramatura, user_id) VALUES($_POST[alcohol],$_POST[number],$_POST[gramatura], $_SESSION[userId])";
+            $db->query($query);
+            header('Location: index.php');
+        }
     }
-    if ($_POST['number']<0) {
-        $wszystkoOk = false;
-        $numberError = "Wpisz liczbe dodatnią";
-    }
-    if (empty($_POST['number'])) {
-        $wszystkoOk = false;
-        $numberError = "Wpisz liczbe";
-    }
-    if (empty($_POST['alcohol'])) {
-        $wszystkoOk = false;
-        $alcoholError = "Wybierz alkohol";
-    }
-    if (empty($_POST['gramatura'])) {
-        $wszystkoOk = false;
-        $gramaturaError = "Wybierz gramature";
-    }
-    if (($alcohol == 2 || $alcohol == 3 || $alcohol == 4 || $alcohol == 5) && $gramatura == 1) {
-        $wszystkoOk = false;
-        $gramaturaError ='Tylko piwo liczymy na'.'<br>'.'sztuki!';
-    }
-
-    if ($wszystkoOk === true) {
-        $query = "INSERT INTO rekord(alcohol_id,quantity,gramatura) VALUES($_POST[alcohol],$_POST[number],$_POST[gramatura])";
-        $db->query($query);
-        header('Location: index.php');
-    }
+} else {
+    header('Location: index.php');
 }
-
 $number = "<input type='number' name='number' placeholder='8' style='border: none; width: 120px; height: 60px;
 font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; position: absolute; margin-top: 30px;'"
 
 ?>
-
-
-
-
-
 <!doctype html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Było pite - główna</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            background-image: url("zdjecia/astronaut_beer.jpg");
+            background-size: cover;
+        }
+        }
+    </style>
+</head>
 <body>
 
 <div class="box">
@@ -105,10 +116,10 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; p
                 foreach ($gramatury as $gramatura) {
                     $checked = '';
                     if ($i === 0) {
-                      $checked = 'checked';
-                      $i++;
-                  }
-                    echo "<input type='radio' name='gramatura'".$checked." value='$gramatura[0]'> $gramatura[1] <br><br>";
+                        $checked = 'checked';
+                        $i++;
+                    }
+                    echo "<input type='radio' name='gramatura'" . $checked . " value='$gramatura[0]'> $gramatura[1] <br><br>";
                 }
 //                v($gramatury);
                 ?>

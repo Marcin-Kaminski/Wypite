@@ -1,32 +1,34 @@
 <?php
 session_start();
-require_once 'helpers.php';
-require_once 'connect.php';
-
-$db = new mysqli($host, $db_user, $db_password, $db_name);
-
-$query = "SELECT * FROM rekord WHERE created_on >= '2022-12-01'";
-$rekordy = $db->query($query)->fetch_all();
-$gramaturaPiwa = '';
-$sumaPiwa = 0;
-$iloscDni = '0 zł';
-$sumaPieniedzy = 0;
-foreach ($rekordy as $rekord) {
-    switch ($rekord[1]) {
-        case '1':
-            $sumaPiwa += (int)$rekord[3];
-            $gramaturaPiwa = $rekord[4];
-            break;
+if ($_SESSION['logged'] === true) {
+    require_once 'helpers.php';
+    require_once 'connect.php';
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
+    $query = "SELECT * FROM rekord WHERE user_id = {$_SESSION['userId']}";
+    $rekordy = $db->query($query)->fetch_all();
+    $gramaturaPiwa = '';
+    $sumaPiwa = 0;
+    $iloscDni = 0;
+    $sumaPieniedzy = 0;
+    foreach ($rekordy as $rekord) {
+        switch ($rekord[1]) {
+            case '1':
+                $sumaPiwa += (int)$rekord[3];
+                $gramaturaPiwa = $rekord[4];
+                break;
+        }
+        if ($rekord[1] == 1) {
+            $iloscDni += $rekord[1];
+        }
     }
-    if ($rekord[1] == 1) {
-        $iloscDni +=  $rekord[1];
+    if ($sumaPiwa != 0) {
+        $sumaPieniedzy = 'około ' . $sumaPiwa * 2.99 . ' zł';
+        $sumaPiwa = $sumaPiwa . ' szt.';
+    } else {
+        $sumaPiwa = 'Nie było pite';
     }
-}
-if ($sumaPiwa != 0) {
-    $sumaPieniedzy = 'około ' . $sumaPiwa * 2.99 . ' zł';
-    $sumaPiwa = $sumaPiwa . ' szt.';
 } else {
-    $sumaPiwa = 'Nie było pite';
+    header('location: index.php');
 }
 
 

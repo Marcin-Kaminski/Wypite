@@ -1,36 +1,38 @@
 <?php
 session_start();
-require_once 'helpers.php';
-require_once 'connect.php';
+if ($_SESSION['logged'] === true) {
+    require_once 'helpers.php';
+    require_once 'connect.php';
+    $db = new mysqli($host, $db_user, $db_password, $db_name);
 
-$db = new mysqli($host, $db_user, $db_password, $db_name);
-
-$query = "SELECT * FROM rekord";
-$rekordy = $db->query($query)->fetch_all();
-$gramaturaWodki = '';
-$sumaWodki = 0;
-$iloscDni = 0;
-$sumaPieniedzy = 0;
-foreach ($rekordy as $rekord) {
-    if ($rekord[1] == 2) {
-        $sumaWodki += (int)$rekord[3];
-        $gramaturaWodki = $rekord[4];
-        $iloscDni +=  $rekord[1];
+    $query = "SELECT * FROM rekord WHERE user_id = {$_SESSION['userId']}";
+    $rekordy = $db->query($query)->fetch_all();
+    $gramaturaWodki = '';
+    $sumaWodki = 0;
+    $iloscDni = 0;
+    $sumaPieniedzy = 0;
+    foreach ($rekordy as $rekord) {
+        if ($rekord[1] == 2) {
+            $sumaWodki += (int)$rekord[3];
+            $gramaturaWodki = $rekord[4];
+            $iloscDni += $rekord[1];
+        }
     }
-}
-$iloscDni /= 2;
-if ($sumaWodki != 0) {
-    $sumaPieniedzy = $sumaWodki / 500 * 24.99;
-    $sumaWodki = 'ok. ' . $sumaWodki . ' ml.';
+    $iloscDni /= 2;
+    if ($sumaWodki != 0) {
+        $sumaPieniedzy = $sumaWodki / 500 * 24.99;
+        $sumaWodki = 'ok. ' . $sumaWodki . ' ml.';
+    } else {
+        $sumaWodki = 'Nie było pite';
+    }
+    if ($sumaPieniedzy != 0) {
+        $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+    } else {
+        $formatedSumaPieniedzy = '0 zł';
+    }
 } else {
-    $sumaWodki = 'Nie było pite';
+    header('location: index.php');
 }
-if ($sumaPieniedzy != 0) {
-    $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
-} else {
-    $formatedSumaPieniedzy = '0 zł';
-}
-
 
 ?>
 
