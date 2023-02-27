@@ -64,21 +64,22 @@ if ($_SESSION['logged'] === true) {
     <div class="by-marcin">by Marcin</div>
     <img src="zdjecia/beer.png" class="beer" alt="Coś się popsuło"> <br>
     <div class="color mb-20">
-        <img src="zdjecia/beer.png" alt="napraw kod" class="quantity" style="height: 40px">
+        <img src="zdjecia/bp_icon.png" alt="napraw kod" class="quantity">
         <div class="alcohol fb text-uppercase" style="margin-bottom: 2px">Statystyki Piwska</div>
         <div class="clearfix"></div>
         <div class="stripe percent-80 mt-0"></div>
         <div class="font-weight"></div>
+        <div class="" style="font-size: 13px">
         <?php
         echo 'Suma wypitych piw:' . '<div class="fb">' . $sumaPiwa . '</div>';
         echo '"Wypite" pieniądze:' . '<div class="fb">' . $sumaPieniedzy . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
-
         ?>
+        </div>
     </div>
 
-    <a href="rankingi.php" class="popraw-rekord mb-15">Wróć</a>
+    <a href="rankingi.php" class="popraw-rekord mb-15" style="margin-bottom: 0px!important; text-decoration: none">Wróć</a>
     </div>
 </div>
 

@@ -21,13 +21,13 @@ if ($_SESSION['logged'] === true) {
     $iloscDni /= 3;
     if ($sumaWina != 0) {
         $sumaPieniedzy = $sumaWina / 750 * 24.99;
-        $sumaWina = 'ok. ' . $sumaWina . ' ml.';
+        $sumaWina = 'ok. ' . $sumaWina . ' ml';
     } else {
         $sumaWina = 'Nie było pite';
     }
 
     if ($sumaPieniedzy != 0) {
-        $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł.';
+        $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł';
     } else {
         $formatedSumaPieniedzy = '0 zł';
     }
@@ -71,16 +71,17 @@ if ($_SESSION['logged'] === true) {
         <div class="clearfix"></div>
         <div class="stripe percent-80 mt-0"></div>
         <div class="font-weight"></div>
+        <div class="" style="font-size: 13px">
         <?php
         echo 'Suma wypitego wina:' . '<div class="fb">' . $sumaWina . '</div>';
         echo '"Wypite" pieniądze:' . '<div class="fb">' . $formatedSumaPieniedzy . '</div>';
         echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
         echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
-
         ?>
+        </div>
     </div>
 
-    <a href="rankingi.php" class="popraw-rekord mb-15">Wróć</a>
+    <a href="rankingi.php" class="popraw-rekord mb-15" style="text-decoration: none; margin-bottom: 0px!important;">Wróć</a>
 </div>
 </div>
 
