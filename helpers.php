@@ -9,7 +9,7 @@ function rrr($db, $suma, $id)
 {
     if ($suma != 0) {
         if (is_numeric($suma) && $suma > 1000) {
-            $name = 'ok. ' . $suma / 1000 . ' l.';
+            $name = 'ok. ' . round($suma / 1000, 1) . ' l';
         } else {
             $query = "SELECT * FROM gramatura WHERE id = $id";
             $result = $db->query($query)->fetch_assoc();
@@ -103,8 +103,8 @@ function record($alcoholArrayName, $bestAlcoholYear)
 function beer($mostAlcohol, $alcoholName, $alcoholArrayName, $bestAlcoholYear)
 {
     if (!is_null($mostAlcohol)) {
-        echo'<div class="alcohol-name">' . $alcoholName  . '</div>' .
-            '<div class="alcohol ">' . $mostAlcohol . ' szt.' . '</div>' .
+        echo'<div class="alcohol-name" style="margin-bottom: 3px">' . $alcoholName  . '</div>' .
+            '<div class="alcohol ">' . $mostAlcohol . ' szt' . '</div>' .
             '<div class="quantity text-align-right">';
         record($alcoholArrayName, $bestAlcoholYear);
         echo'</div>' .
@@ -115,8 +115,8 @@ function beer($mostAlcohol, $alcoholName, $alcoholArrayName, $bestAlcoholYear)
 function notBeer($mostAlcohol, $alcoholName, $alcoholArrayName, $bestAlcoholYear)
 {
     if (!is_null($mostAlcohol)) {
-        echo'<div class="alcohol-name">' . $alcoholName  . '</div>' .
-            '<div class="alcohol">' . 'ok. ' .  $mostAlcohol . ' ml.'  . '</div>' .
+        echo'<div class="alcohol-name" style="margin-bottom: 3px">' . $alcoholName  . '</div>' .
+            '<div class="alcohol">' . 'ok. ' .  $mostAlcohol . ' ml'  . '</div>' .
             '<div class="quantity text-align-right">';
         record($alcoholArrayName, $bestAlcoholYear);
         echo'</div>' .

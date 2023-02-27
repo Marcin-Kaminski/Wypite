@@ -258,8 +258,14 @@ text-align: center;
 .text-align-right {
     text-align: right;
 }
-.error{;
+.error {;
     color: red;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.circle {
+    background-color: #E9B22A;
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
 }

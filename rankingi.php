@@ -95,7 +95,7 @@ if ($_SESSION['logged'] === true) {
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
     <div class="color mb-20">
-        <div class="alcohol fb text-uppercase">Rankingi i statystyki</div> <br>
+        <div class="alcohol fb text-uppercase" style="font-size: 15px" >Rankingi i statystyki</div> <br>
         <?php
         if (!empty($_GET)) {
                 echo'<div class="alcohol-name">' . 'Piwsko'  . '</div>';
@@ -125,12 +125,12 @@ if ($_SESSION['logged'] === true) {
     </div>
     <form method="get">
         <?php
-        echo '<select name="year" class="rectangle alcohol clearfix">';
+        echo '<select name="year" class="rectangle alcohol clearfix" style="appearance: none; margin-left: 2px">';
         for ($year = $startYear; $year <= $endYear; $year++) {
             echo '<option value="' . $year . '">' . $year . '</option>';
         }
         echo '</select>';
-        echo '<select name="month" class="rectangle quantity">';
+        echo '<select name="month" class="rectangle alcohol" style="appearance: none; margin-left: 8px;">';
         foreach ($months as $month) {
             echo '<option value="' . $month['id'] . '">' . $month['month'] . '</option>';
         }
@@ -139,7 +139,7 @@ if ($_SESSION['logged'] === true) {
         <input type="submit" class="popraw-rekord clearfix" value="Zobacz" >
 
     </form>
-    <div class="alcohol fb mb-15 text-uppercase color">rekordowe miesiące</div>
+    <div class="alcohol fb mb-15 text-uppercase color" style="font-size: 15px">rekordowe miesiące</div>
     <div class="stripe clearfix"></div>
     <div class="color letter-size">
         <?php
@@ -152,7 +152,7 @@ if ($_SESSION['logged'] === true) {
         ?>
     </div>
     <div class="clearfix"></div>
-    <div class="alcohol fb mb-15 text-uppercase color">Statystyki poszczególnych alko</div>
+    <div class="alcohol fb mb-15 text-uppercase color" style="margin-top: 10px; font-size: 15px">Statystyki poszczególnych alko</div>
     <div class="stripe clearfix mb-30"></div>
     <div class="alcohol-signature">
         <a href="piwsko.php"><img src="zdjecia/beer.png" class="beer mb-15 ml-21" alt="Coś nie działa"></a>

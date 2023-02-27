@@ -85,9 +85,9 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; p
     <div class="było-pite">Było pite</div>
     <div class="by-marcin mb-60">by Marcin</div>
     <div class="color mb-20">
-        <div class="poprawianie-rekordu">Poprawianie rekordu</div> <br>
-        <div class="alcohol mb-15 letter-size">ile / gramatura</div>
-        <div class="quantity letter-size-s">co</div>
+        <div class="poprawianie-rekordu" style="font-size: 15px">Poprawianie rekordu</div> <br>
+        <div class="alcohol mb-15 letter-size" style="clear: both; font-size: 13px">ile / gramatura</div>
+        <div class="quantity letter-size-s" style="font-size: 15px">co</div>
         <div class="clearfix"></div>
         <div class="stripe mt-0"></div>
         <div class="quantity letter-size-b"></div>
@@ -148,7 +148,7 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; p
             echo "<div class='error quantity clearfix'>$alcoholError</div>";
         }
         ?>
-        <button type="submit" name="submit" class="popraw-rekord clearfix mb-20 pointer">Popraw</button>
+        <button type="submit" name="submit" class="popraw-rekord clearfix mb-20 pointer" style="margin-bottom: 0px">Popraw</button>
     </form>
 </div>
 

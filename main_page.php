@@ -56,7 +56,7 @@ if ($_SESSION['logged'] === true) {
     $gramaturaJagera = rrr($db, $sumaJagera, $gramaturaJagera);
 
     if ($sumaPiwa != 0) {
-        $sumaPiwa = $sumaPiwa . ' szt.';
+        $sumaPiwa = $sumaPiwa . ' szt';
     } else {
         $sumaPiwa = 'Nie było pite';
     }
@@ -93,7 +93,7 @@ if ($_SESSION['logged'] === true) {
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
-    <a href="popraw_rekord.php" class="popraw-rekord">Popraw rekord</a>
+    <a href="popraw_rekord.php" class="popraw-rekord" style="text-decoration: none; height: 47px; width: 246px;">Popraw rekord</a>
     <div class="color mb-20">
         <img src="zdjecia/bp_icon.png" alt="napraw kod" class="quantity">
         <div class="alcohol fb">Ranking za obecny miesiąc</div>
@@ -101,6 +101,7 @@ if ($_SESSION['logged'] === true) {
         <div class="stripe percent-80 mt-0"></div>
         <div class="font-weight"></div>
     </div>
+    <div class="" style="font-size: 13px">
         <div class="color">
             <div class="alcohol">Piwsko</div>
             <?php
@@ -139,14 +140,11 @@ if ($_SESSION['logged'] === true) {
             echo '<div class="quantity">' . $gramaturaJagera . '</div>'
             ?>
             <div class="clearfix"></div>
-            <div class="stripe"></div>
         </div>
-
-    <div class="wiecej-rankingow">
-    <a href="rankingi.php" class="wiecej-rankingow">Więcej dzikich rankingów</a>
     </div>
+        <a href="rankingi.php" class="wiecej-rankingow" style="display: block; text-decoration: none;  width: 246px;">Więcej dzikich rankingów</a>
     <form method="post">
-        <button class="popraw-rekord" name="logout">wyloguj sie</button>
+        <button class="popraw-rekord" style="margin-bottom: 0px; width: 246px;" name="logout">wyloguj sie</button>
     </form>
 </div>
 
