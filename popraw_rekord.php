@@ -119,9 +119,9 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; p
                         $checked = 'checked';
                         $i++;
                     }
-                    echo "<input type='radio' name='gramatura'" . $checked . " value='$gramatura[0]'> $gramatura[1] <br><br>";
+                    echo "<span>" . $gramatura[1] . "</span>"
+                       . "<input type='radio' name='gramatura'" . $checked . " value='$gramatura[0]'> <br><br>";
                 }
-//                v($gramatury);
                 ?>
             </div>
             <?php
