@@ -62,12 +62,10 @@ if ($_SESSION['logged'] === true) {
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
-    <img src="zdjecia/beer.png" class="beer" alt="Coś się popsuło"> <br>
     <div class="color mb-20">
-        <img src="zdjecia/bp_icon.png" alt="napraw kod" class="quantity">
-        <div class="alcohol fb text-uppercase" style="margin-bottom: 2px">Statystyki Piwska</div>
+        <img src="zdjecia/beer.png" alt="napraw kod" class="quantity" style="height: 60px">
+        <div class="alcohol fb text-uppercase alcohol-statistics" style="margin-bottom: 2px">Statystyki Piwska</div>
         <div class="clearfix"></div>
-        <div class="stripe percent-80 mt-0"></div>
         <div class="font-weight"></div>
         <div class="" style="font-size: 13px">
         <?php
