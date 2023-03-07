@@ -20,27 +20,19 @@ if ($_SESSION['logged'] === true) {
 
         if ($alcohol == 1 && $gramatura == 2) {
             $wszystkoOk = false;
-            $gramaturaError = 'Piwo liczymy na sztuki';
+            $gramaturaError = 'Piwo liczymy na sztuki!';
         }
         if ($_POST['number'] < 0) {
             $wszystkoOk = false;
-            $numberError = "Wpisz liczbe dodatnią";
+            $numberError = "Nie oszukuj!";
         }
         if (empty($_POST['number'])) {
             $wszystkoOk = false;
-            $numberError = "Wpisz liczbe";
-        }
-        if (empty($_POST['alcohol'])) {
-            $wszystkoOk = false;
-            $alcoholError = "Wybierz alkohol";
-        }
-        if (empty($_POST['gramatura'])) {
-            $wszystkoOk = false;
-            $gramaturaError = "Wybierz gramature";
+            $numberError = "Wpisz liczbe!";
         }
         if (($alcohol == 2 || $alcohol == 3 || $alcohol == 4 || $alcohol == 5) && $gramatura == 1) {
             $wszystkoOk = false;
-            $gramaturaError = 'Tylko piwo liczymy na' . '<br>' . 'sztuki!';
+            $gramaturaError = 'Tylko piwo liczymy na sztuki!';
         }
 
         if ($wszystkoOk === true) {
@@ -52,8 +44,8 @@ if ($_SESSION['logged'] === true) {
 } else {
     header('Location: index.php');
 }
-$number = "<input type='number' name='number' placeholder='8' style='border: none; width: 120px; height: 60px;
-font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; position: absolute; margin-top: 30px;'"
+$number = "<input type='number' name='number' placeholder='8' style='border: none; width: 100px; height: 60px;
+font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; font-weight: normal'"
 
 ?>
 <!doctype html>
@@ -77,7 +69,6 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; p
     </style>
 </head>
 <body>
-
 <div class="box">
     <div style="text-align: center;">
         <a href="index.php"><img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
@@ -92,63 +83,61 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; p
         <div class="stripe mt-0"></div>
         <div class="quantity letter-size-b"></div>
     </div>
-<div class=""></div>
     <form method="post">
         <div class="color">
-            <div class="alcohol clearfix">
-                <div class="font-size-large ">
+            <div class="box-left">
+                <div class="vertical-stripe-short"></div>
+
+                <div class="" style="margin-right: 15px; margin-top: -7px">
+                    <?php echo $number; ?>
+
+                    <div class="number-margin"></div>
+                    <div class="font-weight text-uppercase" style="font-size: 13px">
+
+                        <?php
+                        $i = 0;
+                        foreach ($gramatury as $gramatura) {
+                            $checked = '';
+                            $marginTop = '';
+                            if ($i === 0) {
+                                $checked = 'checked';
+                                $marginTop = 'margin-top: 44px';
+                                $i++;
+                            }
+                            echo "<span>" . $gramatura[1] . "</span>"
+                                . "<input type='radio' name='gramatura' style='margin-bottom: 15px;$marginTop'" . $checked . " value='$gramatura[0]'><br>";
+                        }
+                        ?>
+                    </div>
                     <?php
-                    echo $number;
+                    if (isset($gramaturaError)) {
+                        echo "<div class='error'>$gramaturaError</div>";
+                    }
+                    if (isset($numberError)) {
+                        echo "<div class='error'>$numberError</div>";
+                    }
                     ?>
                 </div>
             </div>
-            <div class="position-aboslute">
-                <?php
-                if (isset($numberError)) {
-                    echo "<div class='error'>$numberError</div>";
-                }
-                ?>
-            </div>
-            <div class="ml-60 font-weight text-uppercase number-visible">
-
-                <?php
-                $i = 0;
-                foreach ($gramatury as $gramatura) {
-                    $checked = '';
-                    if ($i === 0) {
-                        $checked = 'checked';
-                        $i++;
+            <div class="box-right">
+                <div class="vertical-stripe"></div>
+                <div class="font-weight text-uppercase mb-20 ml-15 color" style="position: relative; z-index: 1">
+                    <?php
+                    $i = 0;
+                    foreach ($alcohols as $alcohol) {
+                        $checked = '';
+                        if ($i === 0) {
+                            $checked = 'checked';
+                            $i++;
+                        }
+                        echo "<input type='radio' name='alcohol' style='margin-bottom: 15px'" . $checked . " value='$alcohol[0]'> $alcohol[1] <br>";
                     }
-                    echo "<span>" . $gramatura[1] . "</span>"
-                       . "<input type='radio' name='gramatura'" . $checked . " value='$gramatura[0]'> <br><br>";
-                }
-                ?>
+                    ?>
+                </div>
             </div>
-            <?php
-            if (isset($gramaturaError)) {
-                echo "<div class='error'>$gramaturaError</div>";
-            }
-            ?>
+            <div class="clearfix"></div>
+            <button type="submit" name="submit" class="popraw-rekord clearfix mb-20 pointer" style="margin-bottom: 0px">Popraw</button>
         </div>
-        <div class="quantity font-weight text-uppercase mb-20">
-            <?php
-            $i = 0;
-            foreach ($alcohols as $alcohol) {
-                $checked = '';
-                if ($i === 0) {
-                    $checked = 'checked';
-                    $i++;
-                }
-                echo "<input type='radio' name='alcohol'" . $checked . " value='$alcohol[0]'> $alcohol[1] <br><br>";
-            }
-            ?>
-        </div>
-        <?php
-        if (isset($alcoholError)) {
-            echo "<div class='error quantity clearfix'>$alcoholError</div>";
-        }
-        ?>
-        <button type="submit" name="submit" class="popraw-rekord clearfix mb-20 pointer" style="margin-bottom: 0px">Popraw</button>
     </form>
 </div>
 

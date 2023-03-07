@@ -115,7 +115,7 @@ if (isset($_SESSION['logged'])) {
             echo '<div class="error">' . $ePassword2 . '</div>';
         }
         ?>
-        <button type="submit" class="popraw-rekord mb-0" style="font-size: 15px; width: 255px" name="submit">Zarejestruj się</button>
+        <button type="submit" class="popraw-rekord" style="font-size: 15px; width: 255px; margin-bottom: 7px" name="submit">Zarejestruj się</button>
         <a href="login.php" class="popraw-rekord mb-0" style="width: 255px">Przejdź do logowania</a>
     </form>
 </div>

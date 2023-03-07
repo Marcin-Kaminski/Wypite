@@ -68,7 +68,7 @@ if (!isset($_SESSION['logged'])) {
             echo '<div class="error">' . $eLogging . '</div>';
         }
         ?>
-        <button type="submit" class="popraw-rekord mb-0" style="font-size: 15px; width: 255px " name="submit">Zaloguj się</button>
+        <button type="submit" class="popraw-rekord" style="font-size: 15px; width: 255px; margin-bottom: 7px" name="submit">Zaloguj się</button>
         <a href="registration.php" class="popraw-rekord mb-0" style="width: 255px">Przejdź do rejestracji</a>
     </form>
 </div>
