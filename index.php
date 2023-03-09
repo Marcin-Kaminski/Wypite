@@ -46,37 +46,39 @@ if (isset($_SESSION['logged'])) {
         <div class="stripe percent-80 mt-0"></div>
         <div class="font-weight"></div>
     </div>
-    <div class="color">
-        <div class="alcohol">Piwsko</div>
-        <div class="quantity">0 szt</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
+    <div class="" style="font-size: 13px">
+        <div class="color">
+            <div class="alcohol">Piwsko</div>
+            <div class="quantity">0 szt</div>
+            <div class="clearfix"></div>
+            <div class="stripe"></div>
+        </div>
+        <div class="color">
+            <div class="alcohol">Wóda</div>
+            <div class="quantity">0 ml</div>
+            <div class="clearfix"></div>
+            <div class="stripe"></div>
+        </div>
+        <div class="color">
+            <div class="alcohol">Wino</div>
+            <div class="quantity">0 ml</div>
+            <div class="clearfix"></div>
+            <div class="stripe"></div>
+        </div>
+        <div class="color">
+            <div class="alcohol">Ruda</div>
+            <div class="quantity">0 ml</div>
+            <div class="clearfix"></div>
+            <div class="stripe"></div>
+        </div>
+        <div class="color">
+            <div class="alcohol">Jager</div>
+            <div class="quantity"> 0 ml</div>
+            <div class="clearfix"></div>
+            <div class="stripe"></div>
+        </div>
     </div>
-    <div class="color">
-        <div class="alcohol">Wóda</div>
-        <div class="quantity">0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Jabolce</div>
-        <div class="quantity">0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Ruda</div>
-        <div class="quantity">0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="color">
-        <div class="alcohol">Jager</div>
-        <div class="quantity"> 0 ml</div>
-        <div class="clearfix"></div>
-        <div class="stripe"></div>
-    </div>
-    <div class="wiecej-rankingow">Więcej dzikich rankingów</div>
+    <div class="wiecej-rankingow" style="margin-bottom: 0!important;">Więcej dzikich rankingów</div>
 </div>
 
 </body>

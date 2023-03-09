@@ -27,7 +27,7 @@ body {
     display: block;
 }
 .register-tables{
-    width: 248px;
+    width: 235px;
     height: 37px;
     margin: 5px 1px 5px;
     background-color: black;
@@ -37,6 +37,7 @@ body {
     color: rgb(242,242,245,255);
     display: block;
     font-size: 15px;
+    padding-left: 13px
 }
 .wiecej-rankingow {
     width: 248px;
@@ -307,4 +308,20 @@ text-align: center;
 }
 .number-margin {
     margin-left: 20px;
+}
+.display-inline-block {
+    display: inline-block;
+}
+.left-column {
+    float: left;
+    margin-top: 5px;
+}
+.right-column {
+    float: right;
+    text-align: right;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.mb-5 {
+    margin-bottom: 5px;
 }

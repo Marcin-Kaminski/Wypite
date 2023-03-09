@@ -21,13 +21,13 @@ if ($_SESSION['logged'] === true) {
     $iloscDni /= 3;
     if ($sumaWina != 0) {
         $sumaPieniedzy = $sumaWina / 750 * 24.99;
-        $sumaWina = 'ok. ' . $sumaWina . ' ml';
+        $sumaWina = rrr($db, $sumaWina, $gramaturaWina);
     } else {
         $sumaWina = 'Nie było pite';
     }
 
     if ($sumaPieniedzy != 0) {
-        $formatedSumaPieniedzy = 'około ' . number_format($sumaPieniedzy, 2) . ' zł';
+        $formatedSumaPieniedzy = 'ok. ' . number_format($sumaPieniedzy, 2) . ' zł';
     } else {
         $formatedSumaPieniedzy = '0 zł';
     }
@@ -60,26 +60,35 @@ if ($_SESSION['logged'] === true) {
 
 <div class="box">
     <div style="text-align: center;">
-        <img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
+        <a href="index.php"><img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
     <div class="color mb-20">
-        <img src="zdjecia/martiniBianco.png" alt="napraw kod" class="quantity" style="height: 60px">
+        <img src="zdjecia/martiniBianco.png" alt="napraw kod" class="quantity" style="height: 50px">
         <div class="alcohol fb text-uppercase alcohol-statistics">Statystyki wina</div>
         <div class="clearfix"></div>
         <div class="font-weight"></div>
         <div class="" style="font-size: 13px">
-        <?php
-        echo 'Suma wypitego wina:' . '<div class="fb">' . $sumaWina . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . $formatedSumaPieniedzy . '</div>';
-        echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
-        echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
-        ?>
+            <div class="left-column">
+                <div =class="mb-5">Suma wypitego wina:</div>
+                <div =class="mb-5">"Wypite" pieniądze:</div>
+                <div =class="mb-5">Ilość dni w których piłeś:</div>
+                Ilość dni na kacu: <br>
+                <div class="fb" style="margin-top: 5px" >Opcja niebawem dostępna </div>
+            </div>
+            <div class="right-column">
+                <?php
+                echo '<div class="mb-5">' . $sumaWina . '</div>' .
+                    '<div class="mb-5">' . $formatedSumaPieniedzy . '</div>' .
+                    '<div class="mb-5">' . $iloscDni . '</div>';
+                ?>
+            </div>
+
         </div>
     </div>
-
-    <a href="rankingi.php" class="popraw-rekord mb-15" style="text-decoration: none; margin-bottom: 0px!important;">Wróć</a>
+    <div class="clearfix"></div>
+    <a href="rankingi.php" class="popraw-rekord mb-15" style="text-decoration: none; margin-bottom: 0px!important; margin-top: 25px">Wróć</a>
 </div>
 </div>
 

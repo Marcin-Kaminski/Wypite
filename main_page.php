@@ -119,7 +119,7 @@ if ($_SESSION['logged'] === true) {
             <div class="stripe"></div>
         </div>
         <div class="color">
-            <div class="alcohol">Jabolce</div>
+            <div class="alcohol">Wino</div>
             <?php
             echo '<div class="quantity">' . $gramaturaJaboli . '</div>'
             ?>

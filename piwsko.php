@@ -22,7 +22,7 @@ if ($_SESSION['logged'] === true) {
         }
     }
     if ($sumaPiwa != 0) {
-        $sumaPieniedzy = 'około ' . $sumaPiwa * 2.99 . ' zł';
+        $sumaPieniedzy = 'ok. ' . $sumaPiwa * 3.49 . ' zł';
         $sumaPiwa = $sumaPiwa . ' szt';
     } else {
         $sumaPiwa = 'Nie było pite';
@@ -58,26 +58,35 @@ if ($_SESSION['logged'] === true) {
 
 <div class="box">
     <div style="text-align: center;">
-        <img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
+        <a href="index.php"><img  src="zdjecia/bp_logo2.png" alt="napraw kod"></a>
     </div>
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
     <div class="color mb-20">
-        <img src="zdjecia/beer.png" alt="napraw kod" class="quantity" style="height: 60px">
+        <img src="zdjecia/beer.png" alt="napraw kod" class="quantity" style="height: 50px">
         <div class="alcohol fb text-uppercase alcohol-statistics" style="margin-bottom: 2px">Statystyki Piwska</div>
         <div class="clearfix"></div>
         <div class="font-weight"></div>
         <div class="" style="font-size: 13px">
-        <?php
-        echo 'Suma wypitych piw:' . '<div class="fb">' . $sumaPiwa . '</div>';
-        echo '"Wypite" pieniądze:' . '<div class="fb">' . $sumaPieniedzy . '</div>';
-        echo 'Ilość dni w których piłeś:' . '<div class="fb">' . $iloscDni . '</div>';
-        echo 'Ilość dni na kacu:' . '<div class="fb">' . 'Opcja niebawem dostępna' . '</div>';
-        ?>
-        </div>
-    </div>
+            <div class="left-column">
+                <div =class="mb-5">Suma wypitego piwa:</div>
+            <div =class="mb-5">"Wypite" pieniądze:</div>
+        <div =class="mb-5">Ilość dni w których piłeś:</div>
+    Ilość dni na kacu: <br>
+    <div class="fb" style="margin-top: 5px" >Opcja niebawem dostępna </div>
+</div>
+<div class="right-column">
+    <?php
+    echo '<div class="mb-5">' . $sumaPiwa . '</div>' .
+        '<div class="mb-5">' . $sumaPieniedzy . '</div>' .
+        '<div class="mb-5">' . $iloscDni . '</div>';
+    ?>
+</div>
 
-    <a href="rankingi.php" class="popraw-rekord mb-15" style="margin-bottom: 0px!important; text-decoration: none">Wróć</a>
+</div>
+</div>
+<div class="clearfix"></div>
+    <a href="rankingi.php" class="popraw-rekord mb-15" style="margin-bottom: 0px!important; text-decoration: none; margin-top: 25px">Wróć</a>
     </div>
 </div>
 

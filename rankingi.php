@@ -111,7 +111,7 @@ if ($_SESSION['logged'] === true) {
                 '<div class="alcohol-name">' . 'Ruda'  . '</div>' .
                 checkIf($whiskeySum) .
                 '<div class="clearfix">' . '</div>' .
-                '<div class="alcohol-name">' . 'Jabol'  . '</div>' .
+                '<div class="alcohol-name">' . 'Wino'  . '</div>' .
                 checkIf($wineSum) .
                 '<div class="clearfix">' . '</div>' .
                 '<div class="alcohol-name">' . 'Jager'  . '</div>' .
@@ -146,7 +146,7 @@ if ($_SESSION['logged'] === true) {
         beer($mostBeer, 'Piwsko', $beerArrayName, $bestBeerYear);
         notBeer($mostVodka, 'Wóda', $vodkaArrayName, $bestVodkaYear);
         notBeer($mostWhiskey, 'Ruda', $whiskeyArrayName, $bestWhiskeyYear);
-        notBeer($mostWine, 'Jabol', $wineArrayName, $bestWineYear);
+        notBeer($mostWine, 'Wino', $wineArrayName, $bestWineYear);
         notBeer($mostJager, 'Jager', $jagerArrayName, $bestJagerYear);
         echo '<div class="clearfix">' . '</div>';
         ?>
