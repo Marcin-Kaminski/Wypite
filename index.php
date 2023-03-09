@@ -37,8 +37,8 @@ if (isset($_SESSION['logged'])) {
     <div class="było-pite">Było pite</div>
     <div class="by-marcin">by Marcin</div>
     <div class="color text-align-center">Witaj, masz już konto?</div> <br>
-    <a href="login.php" class="login">zaloguj się</a>
-    <a href="registration.php" class="login">zarejestruj się</a>
+    <a href="login.php" class="login" style="text-decoration: none">zaloguj się</a>
+    <a href="registration.php" class="login" style="text-decoration: none">zarejestruj się</a>
     <div class="color mb-20">
         <img src="zdjecia/bp_icon.png" alt="napraw kod" class="quantity">
         <div class="alcohol fb">Ranking za obecny miesiąc</div>
