@@ -1,6 +1,7 @@
 body {
     font-family: 'PT Sans', sans-serif;
-    background-color: wheat;
+    background-image: url("zdjecia/astronaut_beer.jpg");
+    background-size: cover;
 }
 .popraw-rekord {
     width: 244px;
@@ -96,16 +97,11 @@ text-align: center;
     font-size: 12px;
     margin-bottom: 20px;
 }
-@media only screen and (max-width: 600px) {
-    body {
-        background-image: none;
-    }
-}
 .percent-80{
     width: 80%;
    }
 .mb-0 {
-    margin-bottom: 0px!important;
+    margin-bottom: 0!important;
 }
 .mt-0{
     margin-top: 0!important;
@@ -324,4 +320,42 @@ text-align: center;
 }
 .mb-5 {
     margin-bottom: 5px;
+}
+input::placeholder {
+    color: lightgray;
+}
+.number-8 {
+    border: none;
+    width: 100px;
+    height: 60px;
+    font-size: 60px;
+    -moz-appearance: textfield;
+    color: dimgray;
+    opacity: 1;
+    text-align: right;
+    font-weight: normal;
+    margin-left: 15px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+@media(max-width: 600px) {
+    body {
+        background-image: none!important;
+        background-color: white;
+    }
+    .box {
+        margin: 1px auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+    .alcohol-signature {
+        width: 82px;
+    }
 }

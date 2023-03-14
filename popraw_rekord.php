@@ -44,9 +44,6 @@ if ($_SESSION['logged'] === true) {
 } else {
     header('Location: index.php');
 }
-$number = "<input type='number' name='number' placeholder='8' style='border: none; width: 100px; height: 60px;
-font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; font-weight: normal'"
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -55,18 +52,11 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; f
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Było pite - główna</title>
+    <title>Było pite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        body {
-            background-image: url("zdjecia/astronaut_beer.jpg");
-            background-size: cover;
-        }
-        }
-    </style>
 </head>
 <body>
 <div class="box">
@@ -89,10 +79,10 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; f
                 <div class="vertical-stripe-short"></div>
 
                 <div class="" style="margin-right: 15px; margin-top: -7px">
-                    <?php echo $number; ?>
+                    <input type='number'  name='number' placeholder='8' class="number-8"
 
                     <div class="number-margin"></div>
-                    <div class="font-weight text-uppercase" style="font-size: 13px">
+                    <div class="font-weight text-uppercase" style="font-size: 13px;">
 
                         <?php
                         $i = 0;
@@ -105,7 +95,8 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; f
                                 $i++;
                             }
                             echo "<span>" . $gramatura[1] . "</span>"
-                                . "<input type='radio' name='gramatura' style='margin-bottom: 15px;$marginTop'" . $checked . " value='$gramatura[0]'><br>";
+                                . "<input type='radio' name='gramatura' style='height: 14px; width: 14px;
+                                 margin-bottom: 15px;$marginTop'" . $checked . " value='$gramatura[0]'><br>";
                         }
                         ?>
                     </div>
@@ -130,7 +121,8 @@ font-size: 60px;-moz-appearance: textfield; color: dimgray; text-align: right; f
                             $checked = 'checked';
                             $i++;
                         }
-                        echo "<input type='radio' name='alcohol' style='margin-bottom: 15px'" . $checked . " value='$alcohol[0]'> $alcohol[1] <br>";
+                        echo "<input type='radio' name='alcohol' style='margin-bottom: 15px; height: 14px; width: 14px;'
+                        " . $checked . " value='$alcohol[0]'> $alcohol[1] <br>";
                     }
                     ?>
                 </div>
