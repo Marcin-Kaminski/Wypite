@@ -354,6 +354,7 @@ input::-webkit-inner-spin-button {
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
+        padding: 0;
     }
     .alcohol-signature {
         width: 82px;

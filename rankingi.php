@@ -121,12 +121,14 @@ if ($_SESSION['logged'] === true) {
         <?php
         echo '<select name="year" class="rectangle alcohol clearfix" style="appearance: none; margin-left: 2px">';
         for ($year = $startYear; $year <= $endYear; $year++) {
-            echo '<option value="' . $year . '">' . $year . '</option>';
+            $selected = isset($_GET['year']) && ((int)$_GET['year'] === $year) ? 'selected' : '';
+            echo '<option value="' . $year . '" ' . $selected . ' >' . $year . '</option>';
         }
         echo '</select>';
         echo '<select name="month" class="rectangle alcohol" style="appearance: none; margin-left: 8px;">';
         foreach ($months as $month) {
-            echo '<option value="' . $month['id'] . '">' . $month['month'] . '</option>';
+            $selected = isset($_GET['month']) && ($_GET['month'] === $month['id']) ? 'selected' : '';
+            echo '<option value="' . $month['id'] . '" ' . $selected . ' >' . $month['month'] . '</option>';
         }
         echo '</select>';
         ?>
