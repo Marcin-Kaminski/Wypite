@@ -9,7 +9,7 @@ if ($_SESSION['logged'] === true) {
     $gramaturaPiwa = '';
     $sumaPiwa = 0;
     $iloscDni = 0;
-    $sumaPieniedzy = 0;
+    $sumaPieniedzy = 0 . ' zł';
     foreach ($rekordy as $rekord) {
         switch ($rekord[1]) {
             case '1':
